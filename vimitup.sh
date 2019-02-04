@@ -30,14 +30,19 @@ check_if_installed(){
 }
 
 make_virtual_envs(){
-    virtualenv $HOME/.virtualenvs/neovim2
-    python3 -m venv $HOME/.virtualenvs/neovim3
-    source $HOME/.virtualenv/neovim2/bin/activate
-    pip2 install -U neovim pynvim
-    deactivate 
-    source $HOME/.virtualenv/neovim3/bin/activate
-    pip install -U neovim pynvim
-    deactivate
+    if [ ! -f $HOME/.virtualenvs/neovim2/bin/activate ]; then 
+        virtualenv $HOME/.virtualenvs/neovim2
+        source $HOME/.virtualenvs/neovim2/bin/activate
+        pip2 install -U pynvim
+        deactivate 
+    fi
+
+    if [ ! -f $HOME/.virtualenvs/neovim3/bin/activate  ]; then 
+        python3 -m venv $HOME/.virtualenvs/neovim3
+        source $HOME/.virtualenvs/neovim3/bin/activate
+        pip install -U pynvim
+        deactivate
+    fi
 }
 
 install_rg(){
