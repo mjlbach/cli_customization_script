@@ -18,7 +18,8 @@ check_apt_packages(){
             sudo apt-get install $package
         }
     done
-    pip2
+    pip2 install -U pip
+    pip2 install -U virtualenv
 }
 check_if_installed(){
     if ! [ -x "$(command -v cargo)" ]; then
@@ -31,6 +32,12 @@ check_if_installed(){
 make_virtual_envs(){
     virtualenv $HOME/.virtualenvs/neovim2
     python3 -m venv $HOME/.virtualenvs/neovim3
+    source $HOME/.virtualenv/neovim2/bin/activate
+    pip2 install -U neovim pynvim
+    deactivate 
+    source $HOME/.virtualenv/neovim3/bin/activate
+    pip install -U neovim pynvim
+    deactivate
 }
 
 install_rg(){
@@ -92,6 +99,7 @@ uninstall_neovim(){
     rm -rf $HOME/.local/share/nvim
 }
 
+check_apt_packages
 make_virtual_envs
 install_tmux
 install_neovim
