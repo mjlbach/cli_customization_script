@@ -34,7 +34,6 @@ N	init.vim	/^nnoremap <expr> N  'nN'[v:searchforward]$/;"	m
 N	init.vim	/^onoremap <expr> N  'nN'[v:searchforward]$/;"	m
 ProjectFiles	init.vim	/^command! ProjectFiles execute 'Files' s:find_git_root()$/;"	c
 Rg	init.vim	/^command! -bang -nargs=* Rg$/;"	c
-backup_configurations	vimitup.sh	/^backup_configurations(){$/;"	f
 changebranch	init.vim	/^function! s:changebranch(branch) $/;"	f
 check_apt_packages	vimitup.sh	/^check_apt_packages(){$/;"	f
 check_if_installed	vimitup.sh	/^check_if_installed(){$/;"	f

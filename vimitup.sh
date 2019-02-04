@@ -1,13 +1,13 @@
 #! /usr/bin/env/bash
 
-backup_configurations(){
-    if [ -f $HOME/.config/nvim/init.vim ]; then
-        echo "Pre-existing neovim configuration found"
-        cp $HOME/.config/nvim/init.vim $HOME/.config/nvim/init.vim.bak
-    else
-        echo "You are clear to go"
-    fi
-}
+# backup_configurations(){
+#     if [ -f $HOME/.config/nvim/init.vim ]; then
+#         echo "Pre-existing neovim configuration found"
+#         cp $HOME/.config/nvim/init.vim $HOME/.config/nvim/init.vim.bak
+#     else
+#         echo "You are clear to go"
+#     fi
+# }
 
 check_apt_packages(){
     requirements=(tmux python2.7 python-pip)
