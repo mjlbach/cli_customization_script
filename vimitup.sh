@@ -70,6 +70,7 @@ install_neovim(){
         curl -L https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage --create-dir -o $HOME/.neovim/nvim.appimage
         chmod u+x $HOME/.neovim/nvim.appimage
         echo "alias nvim=$HOME/.neovim/nvim.appimage" >> $HOME/.bashrc
+        source $HOME/.bashrc
     else 
         echo "Get a better OS!"
     fi
@@ -82,7 +83,7 @@ install_neovim(){
     curl -fLo ~/.config/nvim/init.vim --create-dirs \
     https://raw.githubusercontent.com/mjlbach/vim_it_up/master/init.vim
 
-    nvim +PlugInstall +qall 
+    $HOME/.neovim/nvim.appimage +PlugInstall +qall 
 }
 
 uninstall_neovim(){
