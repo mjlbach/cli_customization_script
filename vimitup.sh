@@ -11,11 +11,12 @@
 
 check_apt_packages(){
     requirements=(tmux python2.7 python-pip)
+    sudo apt update
     for package in ${requirements[@]}; do
         dpkg -s "$package" >/dev/null 2>&1 && {
             echo "$package is installed."
         } || {
-            sudo apt -y install $package
+            sudo apt-get -y install $package
         }
     done
     pip2 install -U pip
