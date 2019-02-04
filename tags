@@ -53,7 +53,7 @@ gd	init.vim	/^nnoremap <silent> gd :call LanguageClient#textDocument_definition(
 gr	init.vim	/^nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>$/;"	m
 gs	init.vim	/^nnoremap <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>$/;"	m
 install_neovim	vimitup.sh	/^install_neovim(){$/;"	f
-install_rg	vimitup.sh	/^install_rg(){$/;"	f
+install_rust_dependencies	vimitup.sh	/^install_rust_dependencies(){$/;"	f
 install_tmux	vimitup.sh	/^install_tmux(){$/;"	f
 make_virtual_envs	vimitup.sh	/^make_virtual_envs(){$/;"	f
 mapleader	init.vim	/^let mapleader="\\<Space>"$/;"	v

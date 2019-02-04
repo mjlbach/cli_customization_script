@@ -45,7 +45,7 @@ make_virtual_envs(){
     fi
 }
 
-install_rg(){
+install_rust_dependencies(){
     if ! [ -x "$(command -v cargo)" ]; then
       echo 'Error: Rust is not installed.' >&2
       curl https://sh.rustup.rs -sSf | sh
@@ -74,7 +74,11 @@ install_neovim(){
     then
         curl -L https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage --create-dir -o $HOME/.neovim/nvim.appimage
         chmod u+x $HOME/.neovim/nvim.appimage
-        echo "alias nvim=$HOME/.neovim/nvim.appimage" >> $HOME/.bashrc
+        if [ `alias | grep nvim | wc -l` != 0 ]; then
+            echo "Warning, nvim alias already detected. Ensure your alias points to ~/.neovim/nvim.appimage in your bashrc"
+        else
+            echo "alias nvim=$HOME/.neovim/nvim.appimage" >> $HOME/.bashrc
+        fi
         source $HOME/.bashrc
     else 
         echo "Get a better OS!"
