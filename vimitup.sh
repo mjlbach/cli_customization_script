@@ -76,7 +76,7 @@ install_neovim(){
         chmod u+x $HOME/.neovim/nvim.appimage
         if [ `alias | grep nvim | wc -l` != 0 ]; then
             echo "Warning, nvim alias already detected. Ensure your alias points to ~/.neovim/nvim.appimage in your bashrc"
-        else
+        elif [ `alias | grep nvim | wc -l` = 0 ]; then
             echo "alias nvim=$HOME/.neovim/nvim.appimage" >> $HOME/.bashrc
         fi
         source $HOME/.bashrc
