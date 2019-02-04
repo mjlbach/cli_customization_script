@@ -10,8 +10,8 @@ backup_configurations(){
 }
 
 check_apt_packages(){
-    requirements = ("tmux" "python2.7" "python-pip")
-    for package in "${requirements[@]}"; do
+    requirements=("tmux" "python2.7" "python-pip")
+    for package in ${requirements[*]}; do
         dpkg -s "$package" >/dev/null 2>&1 && {
             echo "$package is installed."
         } || {
