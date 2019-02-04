@@ -36,6 +36,7 @@ ProjectFiles	init.vim	/^command! ProjectFiles execute 'Files' s:find_git_root()$
 Rg	init.vim	/^command! -bang -nargs=* Rg$/;"	c
 backup_configurations	vimitup.sh	/^backup_configurations(){$/;"	f
 changebranch	init.vim	/^function! s:changebranch(branch) $/;"	f
+check_apt_packages	vimitup.sh	/^check_apt_packages(){$/;"	f
 check_if_installed	vimitup.sh	/^check_if_installed(){$/;"	f
 find_git_root	init.vim	/^function! s:find_git_root()$/;"	f
 g:LanguageClient_diagnosticsDisplay	init.vim	/^let g:LanguageClient_diagnosticsDisplay = {$/;"	v
