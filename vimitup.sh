@@ -10,7 +10,7 @@
 # }
 
 check_apt_packages(){
-    requirements=(tmux python2.7 python-pip)
+    requirements=(tmux python2.7 python-pip python-virtualenv python3-venv)
     sudo apt update
     for package in ${requirements[@]}; do
         dpkg -s "$package" >/dev/null 2>&1 && {
@@ -19,8 +19,6 @@ check_apt_packages(){
             sudo apt-get -y install $package
         }
     done
-    pip2 install -U pip
-    pip2 install -U virtualenv
 }
 
 check_if_installed(){
