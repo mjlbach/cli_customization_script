@@ -54,6 +54,8 @@ gr	init.vim	/^nnoremap <silent> gr :call LanguageClient#textDocument_references(
 gs	init.vim	/^nnoremap <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>$/;"	m
 install_neovim	vimitup.sh	/^install_neovim(){$/;"	f
 install_rg	vimitup.sh	/^install_rg(){$/;"	f
+install_tmux	vimitup.sh	/^install_tmux(){$/;"	f
+make_virtual_envs	vimitup.sh	/^make_virtual_envs(){$/;"	f
 mapleader	init.vim	/^let mapleader="\\<Space>"$/;"	v
 n	init.vim	/^nnoremap <expr> n  'Nn'[v:searchforward]$/;"	m
 n	init.vim	/^onoremap <expr> n  'Nn'[v:searchforward]$/;"	m
