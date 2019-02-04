@@ -34,9 +34,9 @@ N	init.vim	/^nnoremap <expr> N  'nN'[v:searchforward]$/;"	m
 N	init.vim	/^onoremap <expr> N  'nN'[v:searchforward]$/;"	m
 ProjectFiles	init.vim	/^command! ProjectFiles execute 'Files' s:find_git_root()$/;"	c
 Rg	init.vim	/^command! -bang -nargs=* Rg$/;"	c
+backup_configurations	vimitup.sh	/^backup_configurations(){$/;"	f
 changebranch	init.vim	/^function! s:changebranch(branch) $/;"	f
-check_apt_packages	vimitup.sh	/^check_apt_packages(){$/;"	f
-check_if_installed	vimitup.sh	/^check_if_installed(){$/;"	f
+customize_tmux	vimitup.sh	/^customize_tmux(){$/;"	f
 find_git_root	init.vim	/^function! s:find_git_root()$/;"	f
 g:LanguageClient_diagnosticsDisplay	init.vim	/^let g:LanguageClient_diagnosticsDisplay = {$/;"	v
 g:LanguageClient_serverCommands	init.vim	/^let g:LanguageClient_serverCommands = {$/;"	v
@@ -52,9 +52,9 @@ ga	init.vim	/^nmap ga <Plug>(EasyAlign)$/;"	m
 gd	init.vim	/^nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>$/;"	m
 gr	init.vim	/^nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>$/;"	m
 gs	init.vim	/^nnoremap <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>$/;"	m
+install_apt_packages	vimitup.sh	/^install_apt_packages(){$/;"	f
 install_neovim	vimitup.sh	/^install_neovim(){$/;"	f
 install_rust_dependencies	vimitup.sh	/^install_rust_dependencies(){$/;"	f
-install_tmux	vimitup.sh	/^install_tmux(){$/;"	f
 make_virtual_envs	vimitup.sh	/^make_virtual_envs(){$/;"	f
 mapleader	init.vim	/^let mapleader="\\<Space>"$/;"	v
 n	init.vim	/^nnoremap <expr> n  'Nn'[v:searchforward]$/;"	m

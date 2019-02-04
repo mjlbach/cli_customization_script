@@ -1,16 +1,33 @@
 #! /usr/bin/env/bash
 
-# backup_configurations(){
-#     if [ -f $HOME/.config/nvim/init.vim ]; then
-#         echo "Pre-existing neovim configuration found"
-#         cp $HOME/.config/nvim/init.vim $HOME/.config/nvim/init.vim.bak
-#     else
-#         echo "You are clear to go"
-#     fi
-# }
+backup_configurations(){
+    if [ -f $HOME/.config/nvim/init.vim ]; then
+        echo "Pre-existing neovim configuration found"
+        cp $HOME/.config/nvim/init.vim $HOME/.config/nvim/init.vim.bak
+    fi 
+    if [ -f $HOME/.tmux.conf ]; then
+        echo "Pre-existing tmux configuration found"
+        cp $HOME/.tmux.conf $HOME/.tmux.conf.bak
+    else
+        echo "Error, no nvim backup detected!"
+    fi 
+}
 
-check_apt_packages(){
-    requirements=(tmux python2.7 python-pip virtualenv python3-venv)
+backup_configurations(){
+    if [ -f $HOME/.config/nvim/init.vim.bak ]; then
+        echo "Pre-existing neovim configuration found"
+        cp $HOME/.config/nvim/init.vim.bak $HOME/.config/nvim/init.vim
+    fi 
+    if [ -f $HOME/.tmux.conf ]; then
+        echo "Pre-existing tmux configuration found"
+        cp $HOME/.tmux.conf.bak $HOME/.tmux.conf
+    else
+        echo "Error, no tmux backup detected!"
+    fi 
+}
+
+install_apt_packages(){
+    requirements=(curl tmux python2.7 python-pip virtualenv python3-venv)
     sudo apt update
     for package in ${requirements[@]}; do
         dpkg -s "$package" >/dev/null 2>&1 && {
@@ -19,14 +36,6 @@ check_apt_packages(){
             sudo apt-get -y install $package
         }
     done
-}
-
-check_if_installed(){
-    if ! [ -x "$(command -v cargo)" ]; then
-      echo 'Error: Rust is not installed.' >&2
-    else
-        echo "You're good to go!"
-    fi
 }
 
 make_virtual_envs(){
@@ -47,7 +56,7 @@ make_virtual_envs(){
 
 install_rust_dependencies(){
     if ! [ -x "$(command -v cargo)" ]; then
-      echo 'Error: Rust is not installed.' >&2
+      echo "Error: Rust is not installed. Let's fix that" >&2
       curl https://sh.rustup.rs -sSf | sh
       source $HOME/.bash_profile
       source $HOME/.bashrc
@@ -59,8 +68,7 @@ install_rust_dependencies(){
     cargo install exa
 }
 
-install_tmux(){
-    sudo apt install tmux
+customize_tmux(){
     curl -fLo ~/.tmux.conf \
     https://raw.githubusercontent.com/mjlbach/vim_it_up/master/.tmux.conf
 }
@@ -101,16 +109,19 @@ uninstall_neovim(){
         brew uninstall neovim
     elif [ "$(uname)" == "Linux" ]
     then
-        rm -rf $HOME/.neovim/nvim.appimage
+        rm -rf $HOME/.local/share/nvim
+        rm $HOME/.neovim/nvim.appimage
+        rm $HOME/.config/nvim/init.vim
+        rm $HOME/.tmux.conf
     else 
-        echo "Get a better OS!"
+        echo "Please visit https://www.getgnulinux.org/en/ for more information on switching to a friendlier operating system"
     fi
-
-    rm -rf $HOME/.local/share/nvim
 }
 
-check_apt_packages
+backup_configurations
+install_apt_packages
 make_virtual_envs
-install_tmux
+customize_tmux
+install_rust_dependencies
 install_neovim
 
