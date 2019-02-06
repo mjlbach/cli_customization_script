@@ -80,7 +80,7 @@ install_neovim(){
         echo "MacOS"
     elif [ "$(uname)" == "Linux" ]
     then
-        curl -L https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage --create-dir -o $HOME/.neovim/nvim.appimage
+        curl -L https://github.com/neovim/neovim/releases/download/v0.3.4/nvim.appimage --create-dir -o $HOME/.neovim/nvim.appimage
         chmod u+x $HOME/.neovim/nvim.appimage
         if [ `alias | grep nvim | wc -l` != 0 ]; then
             echo "Warning, nvim alias already detected. Ensure your alias points to ~/.neovim/nvim.appimage in your bashrc"

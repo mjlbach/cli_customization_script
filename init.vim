@@ -132,8 +132,8 @@ set rtp+=/usr/local/opt/fzf
 
 " Add neovim remote for vimtex 
 " let g:vimtex_compiler_progname = 'nvr'
-let g:vimtex_compiler_progname = '/Users/michael/.virtualenvs/neovim3/bin/nvr'
-let g:vimtex_compiler_progname = '/Users/michael/.virtualenvs/neovim3/bin/nvr'
+let g:vimtex_compiler_progname = $HOME.'/.virtualenvs/neovim3/bin/nvr'
+let g:vimtex_compiler_progname = $HOME.'/.virtualenvs/neovim3/bin/nvr'
 
 "Add leader shortcuts
 "nnoremap <silent> <leader>f :Files<CR>
@@ -174,6 +174,23 @@ endfunction
 
 command! ProjectFiles execute 'Files' s:find_git_root()
 
+function ProjectWrap()
+  call fzf#run({
+            \ 'source': "fd . '/Users/michael/Repositories'", 
+            \ 'sink': 'e' 
+            \ })
+  exec Glcd
+endfunction
+
+
+" Search all git projects in ~/Repositories
+command! -bang Projects call fzf#run({
+            \ 'source': "fd . '~/Repositories'", 
+            \ 'sink': 'e' 
+            \ })
+
+map <silent> <leader>p :Projects<CR>
+
 " Make gutentags use ripgrep
 let g:gutentags_file_list_command = 'rg --files'
 
@@ -203,6 +220,55 @@ onoremap <expr> N  'nN'[v:searchforward]
 let g:python3_host_prog=$HOME.'/.virtualenvs/neovim3/bin/python'
 let g:python_host_prog=$HOME.'/.virtualenvs/neovim2/bin/python'
 
+" Use jq to format json files on gqq
+augroup JSON 
+  autocmd!
+  autocmd FileType json setlocal formatprg=jq\ .
+augroup END
+
+" Clear white space on empty lines and end of line
+nnoremap <silent> <F6> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+
+""" Nerdtree like sidepanel 
+
+" absolute width of netrw window
+let g:netrw_winsize = -28
+
+" do not display info on the top of window
+let g:netrw_banner = 0
+
+" tree-view
+let g:netrw_liststyle = 3
+
+" sort is affecting only: directories on the top, files below
+let g:netrw_sort_sequence = '[\/]$,*'
+
+" use the previous window to open file
+let g:netrw_browse_split = 4
+
+map <silent> <leader>d :Lexplore<CR>
+let g:NetrwIsOpen=0
+
+function! ToggleNetrw()
+    if g:NetrwIsOpen
+        let i = bufnr("$")
+        while (i >= 1)
+            if (getbufvar(i, "&filetype") == "netrw")
+                silent exe "bwipeout " . i 
+            endif
+            let i-=1
+        endwhile
+        let g:NetrwIsOpen=0
+    else
+        let g:NetrwIsOpen=1
+        silent Lexplore
+    endif
+endfunction
+
+" Open netrw sidebar and open preview of file under cursor with ;
+noremap <silent> <leader>d :call ToggleNetrw()<CR><Paste>
+autocmd filetype netrw nmap <leader>; <cr>:wincmd W<cr>
+
 "Enable NCM2
 autocmd BufEnter * call ncm2#enable_for_buffer()
 set completeopt=noinsert,menuone,noselect
@@ -216,6 +282,7 @@ let g:LanguageClient_serverCommands = {
     \ 'c': ['cquery', '--log-file=/tmp/cq.log'],
     \ }
 
+" \ 'python': ['pyls'],
 "Add global settings
 let g:LanguageClient_settingsPath = $HOME.'/.config/nvim/settings.json'
 
@@ -227,14 +294,15 @@ nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
 nnoremap <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
-" Clear white space on empty lines and end of line
-nnoremap <silent> <F6> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+" Press enter key to trigger snippet expansion
+" The parameters are the same as `:help feedkeys()`
+inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
 
-" Use jq to format json files on gqq
-augroup JSON 
-  autocmd!
-  autocmd FileType json setlocal formatprg=jq\ .
-augroup END
+" c-j c-k for moving in snippet
+" let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
+let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
+let g:UltiSnipsRemoveSelectModeMappings = 0
 
 " Draw the signcolumn when language client neovim starts
 augroup LanguageClient_config
