@@ -87,7 +87,6 @@ install_neovim(){
         elif [ `alias | grep nvim | wc -l` = 0 ]; then
             echo "alias nvim=$HOME/.neovim/nvim.appimage" >> $HOME/.bashrc
         fi
-        source $HOME/.bashrc
     else 
         echo "Get a better OS!"
     fi
@@ -101,6 +100,7 @@ install_neovim(){
     https://raw.githubusercontent.com/mjlbach/vim_it_up/master/init.vim
 
     $HOME/.neovim/nvim.appimage +PlugInstall +qall 
+    source $HOME/.bashrc
 }
 
 uninstall_neovim(){
