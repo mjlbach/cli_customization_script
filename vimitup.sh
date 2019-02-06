@@ -124,4 +124,4 @@ make_virtual_envs
 customize_tmux
 install_rust_dependencies
 install_neovim
-
+source $HOME/.bashrc
