@@ -91,7 +91,7 @@ install_neovim(){
         echo "Get a better OS!"
     fi
 
-    mkdir -p $HOME/.vim/{ swap backup undo }
+    mkdir -p $HOME/.vim/{swap,backup,undo}
 
     curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

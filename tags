@@ -37,6 +37,7 @@ LanguageClient_config	init.vim	/^augroup LanguageClient_config$/;"	a
 N	init.vim	/^nnoremap <expr> N  'nN'[v:searchforward]$/;"	m
 N	init.vim	/^onoremap <expr> N  'nN'[v:searchforward]$/;"	m
 ProjectFiles	init.vim	/^command! ProjectFiles execute 'Files' s:find_git_root()$/;"	c
+ProjectWrap	init.vim	/^function ProjectWrap()$/;"	f
 Projects	init.vim	/^command! -bang Projects call fzf#run({$/;"	c
 Rg	init.vim	/^command! -bang -nargs=* Rg$/;"	c
 ToggleMouse	init.vim	/^function! ToggleMouse()$/;"	f
@@ -56,7 +57,6 @@ g:gruvbox_italic	init.vim	/^let g:gruvbox_italic=1$/;"	v
 g:gruvbox_sign_column	init.vim	/^let g:gruvbox_sign_column='bg0'$/;"	v
 g:gutentags_file_list_command	init.vim	/^let g:gutentags_file_list_command = 'rg --files'$/;"	v
 g:lightline	init.vim	/^let g:lightline = {$/;"	v
-g:netrw_altv	init.vim	/^let g:netrw_altv = 1$/;"	v
 g:netrw_banner	init.vim	/^let g:netrw_banner = 0$/;"	v
 g:netrw_browse_split	init.vim	/^let g:netrw_browse_split = 4$/;"	v
 g:netrw_liststyle	init.vim	/^let g:netrw_liststyle = 3$/;"	v
