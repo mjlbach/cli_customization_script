@@ -75,4 +75,5 @@ make_virtual_envs	vimitup.sh	/^make_virtual_envs(){$/;"	f
 mapleader	init.vim	/^let mapleader="\\<Space>"$/;"	v
 n	init.vim	/^nnoremap <expr> n  'Nn'[v:searchforward]$/;"	m
 n	init.vim	/^onoremap <expr> n  'Nn'[v:searchforward]$/;"	m
+restore_backup	vimitup.sh	/^restore_backup(){$/;"	f
 uninstall_neovim	vimitup.sh	/^uninstall_neovim(){$/;"	f

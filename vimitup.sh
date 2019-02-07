@@ -8,15 +8,15 @@ backup_configurations(){
     if [ -f $HOME/.tmux.conf ]; then
         echo "Pre-existing tmux configuration found"
         cp $HOME/.tmux.conf $HOME/.tmux.conf.bak
-    else
-        echo "Error, no nvim backup detected!"
     fi 
 }
 
-backup_configurations(){
+restore_backup(){
     if [ -f $HOME/.config/nvim/init.vim.bak ]; then
         echo "Pre-existing neovim configuration found"
         cp $HOME/.config/nvim/init.vim.bak $HOME/.config/nvim/init.vim
+    else
+        echo "Error, no neovim backup detected!"
     fi 
     if [ -f $HOME/.tmux.conf ]; then
         echo "Pre-existing tmux configuration found"
@@ -100,7 +100,6 @@ install_neovim(){
     https://raw.githubusercontent.com/mjlbach/vim_it_up/master/init.vim
 
     $HOME/.neovim/nvim.appimage +PlugInstall +qall 
-    source $HOME/.bashrc
 }
 
 uninstall_neovim(){
@@ -124,4 +123,3 @@ make_virtual_envs
 customize_tmux
 install_rust_dependencies
 install_neovim
-source $HOME/.bashrc
