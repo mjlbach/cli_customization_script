@@ -11,6 +11,7 @@
 <A-k>	init.vim	/^nnoremap <A-k> :m .-2<CR>==$/;"	m
 <A-k>	init.vim	/^vnoremap <A-k> :m '<-2<CR>gv=gv$/;"	m
 <CR>	init.vim	/^inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\\<CR>", 'n')$/;"	m
+<F10>	init.vim	/^nnoremap <F10> :call ToggleMouse()<CR>$/;"	m
 <F2>	init.vim	/^nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>$/;"	m
 <F5>	init.vim	/^nnoremap <F5> :call LanguageClient_contextMenu()<CR>$/;"	m
 <F6>	init.vim	/^nnoremap <silent> <F6> :let _s=@\/ <Bar> :%s\/\\s\\+$\/\/e <Bar> :let @\/=_s <Bar> :nohl <Bar> :unlet _s <CR>$/;"	m
@@ -21,7 +22,6 @@
 <leader>A	init.vim	/^nnoremap <silent> <leader>A :Windows<CR>$/;"	m
 <leader>b	init.vim	/^nnoremap <silent> <leader>b :Gbranch<CR>$/;"	m
 <leader>c	init.vim	/^nnoremap <silent> <leader>c :Commits<CR>$/;"	m
-<leader>d	init.vim	/^map <silent> <leader>d :Lexplore<CR>$/;"	m
 <leader>d	init.vim	/^noremap <silent> <leader>d :call ToggleNetrw()<CR><Paste>$/;"	m
 <leader>f	init.vim	/^nnoremap <silent> <leader>f :ProjectFiles<CR>$/;"	m
 <leader>l	init.vim	/^nnoremap <silent> <leader>l :BLines<CR>$/;"	m
@@ -37,9 +37,9 @@ LanguageClient_config	init.vim	/^augroup LanguageClient_config$/;"	a
 N	init.vim	/^nnoremap <expr> N  'nN'[v:searchforward]$/;"	m
 N	init.vim	/^onoremap <expr> N  'nN'[v:searchforward]$/;"	m
 ProjectFiles	init.vim	/^command! ProjectFiles execute 'Files' s:find_git_root()$/;"	c
-ProjectWrap	init.vim	/^function ProjectWrap()$/;"	f
 Projects	init.vim	/^command! -bang Projects call fzf#run({$/;"	c
 Rg	init.vim	/^command! -bang -nargs=* Rg$/;"	c
+ToggleMouse	init.vim	/^function! ToggleMouse()$/;"	f
 ToggleNetrw	init.vim	/^function! ToggleNetrw()$/;"	f
 backup_configurations	vimitup.sh	/^backup_configurations(){$/;"	f
 changebranch	init.vim	/^function! s:changebranch(branch) $/;"	f
@@ -56,6 +56,7 @@ g:gruvbox_italic	init.vim	/^let g:gruvbox_italic=1$/;"	v
 g:gruvbox_sign_column	init.vim	/^let g:gruvbox_sign_column='bg0'$/;"	v
 g:gutentags_file_list_command	init.vim	/^let g:gutentags_file_list_command = 'rg --files'$/;"	v
 g:lightline	init.vim	/^let g:lightline = {$/;"	v
+g:netrw_altv	init.vim	/^let g:netrw_altv = 1$/;"	v
 g:netrw_banner	init.vim	/^let g:netrw_banner = 0$/;"	v
 g:netrw_browse_split	init.vim	/^let g:netrw_browse_split = 4$/;"	v
 g:netrw_liststyle	init.vim	/^let g:netrw_liststyle = 3$/;"	v

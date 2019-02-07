@@ -118,6 +118,21 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 "Add map to enter paste mode
 set pastetoggle=<F3>
 
+"Allow copy and paste to clipboard
+nnoremap <F10> :call ToggleMouse()<CR>
+
+function! ToggleMouse()
+  if &mouse == 'a'
+    set mouse=v
+    set nonu
+    echo "Mouse usage Visual"
+  else
+    set mouse=a
+    set nu
+    echo "Mouse usage All"
+  endif
+endfunction
+
 "Set no expandtab on makefile
 autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
 
@@ -230,7 +245,6 @@ augroup END
 nnoremap <silent> <F6> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
 
 """ Nerdtree like sidepanel 
-
 " absolute width of netrw window
 let g:netrw_winsize = -28
 
@@ -245,11 +259,10 @@ let g:netrw_sort_sequence = '[\/]$,*'
 
 " use the previous window to open file
 let g:netrw_browse_split = 4
-
-map <silent> <leader>d :Lexplore<CR>
 let g:NetrwIsOpen=0
 
 function! ToggleNetrw()
+
     if g:NetrwIsOpen
         let i = bufnr("$")
         while (i >= 1)
