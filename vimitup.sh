@@ -58,7 +58,7 @@ install_rust_dependencies(){
     if ! [ -x "$(command -v cargo)" ]; then
       echo "Error: Rust is not installed. Let's fix that" >&2
       curl https://sh.rustup.rs -sSf | sh
-      source $HOME/.bash_profile
+      source $HOME/.profile
       source $HOME/.bashrc
     else
         echo "You're good to go!"
