@@ -31,4 +31,9 @@ source $HOME/.bashrc
 ### FAQ
 
 * Why neovim? 
+
 It comes with an appimage which makes it more modular, also it has more robust plugin support. Most of these plugins are vim compatible with minor modifications.
+
+* Why? 
+
+I program remotely on several different machines. This script makes it easy to replicate ~90% of my development environment anywhere. I typically program with ssh connected to a remote  vim 
