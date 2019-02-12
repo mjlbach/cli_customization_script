@@ -65,6 +65,7 @@ install_rust_dependencies(){
     fi
     cargo install ripgrep
     cargo install bat
+    cargo install fd
     cargo install exa
 }
 
