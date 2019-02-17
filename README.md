@@ -19,7 +19,7 @@ If you would like an up-to-date TMUX 2.8 includes true color support, otherwise 
 
 ```
 export CPPFLAGS="-P"
-bash install_latest_tmux.sh
+bash ./install_latest_tmux.sh
 echo "tmux=$HOME/local/bin/tmux" >> $HOME/.bashrc
 ```
 
