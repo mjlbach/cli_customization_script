@@ -6,7 +6,7 @@
 
 ### Instructions
  
-* Run the following two commands:
+* Run the following two commands to install the settings. Your tmux config and neovim config will be backed up *each time you run this script* overwriting the previous backup:
 
 ```
 
@@ -15,7 +15,13 @@ source $HOME/.bashrc
 
 ```
 
-If you would like an up-to-date TMUX 2.8 includes true color support, otherwise your vim is not going to have the correct coloring inside tmux) and either A) Do not have root or B) don't want to add a PPA/backport to your stable server environment, run the included install tmux script and ensure that tmux is aliased to ~/local/bin/tmux in your bashrc.
+* To update to my latest defaults and install the latest rust compiler/shell programs. Warning, this does not backup your configuration files and will overwrite your tmux and neovim config
+```
+curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/update.sh -sSf | bash 
+source $HOME/.bashrc
+```
+
+* If you would like an up-to-date TMUX 2.8 includes true color support, otherwise your vim is not going to have the correct coloring inside tmux) and either A) Do not have root or B) don't want to add a PPA/backport to your stable server environment, run the included install tmux script and ensure that tmux is aliased to ~/local/bin/tmux in your bashrc.
 
 ```
 export CPPFLAGS="-P"
