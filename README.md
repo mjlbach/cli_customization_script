@@ -14,6 +14,14 @@ source $HOME/.bashrc
 
 ```
 
+If you would like an up-to-date TMUX 2.8 includes true color support, otherwise your vim is not going to have the correct coloring inside tmux) and either A) Do not have root or B) don't want to add a PPA/backport to your stable server environment, run the included install tmux script and ensure that tmux is aliased to ~/local/bin/tmux in your bashrc.
+
+```
+export CPPFLAGS="-P"
+bash install_latest_tmux.sh
+echo "tmux=$HOME/local/bin/tmux" >> $HOME/.bashrc
+```
+
 ### Features
 
 * tmux
