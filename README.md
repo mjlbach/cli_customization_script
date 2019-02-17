@@ -1,7 +1,8 @@
 ### Requirements
 
 * Ubuntu 16.04 or 18.04 (maybe any debian based system? Not sure about package names...)
-* Bash 
+* Any linux system if you modify package manager commands
+* Bash (probably any POSIX compliant shell)
 
 ### Instructions
  
@@ -40,9 +41,9 @@ echo "tmux=$HOME/local/bin/tmux" >> $HOME/.bashrc
 * fd
     * typing fd \[expression\] will find all files matching expression recursively in current directory. Basically like find . -name \[expression\] but significantly faster.
 * fzf
-    * if you type \<ctrl\><\r> you will have an interactive listing of all previous commands. 
-    * if you type \<ctrl\><\t> you will be able to populate a filename at current position of cursor. 
-    * if you type \<alt\><\c> you will be jump to the selected folder.
+    * if you type \<ctrl\>\<r> you will have an interactive listing of all previous commands. 
+    * if you type \<ctrl\>\<t> you will be able to populate a filename at current position of cursor. 
+    * if you type \<alt\>\<c> you will be jump to the selected folder.
     * if you type ** after a command and hit tab, you will have an interactive selector for files. (try nvim **)
 * exa
     * exa is basically colored ls, same mappings. Try adding an alias ll="exa -alh"
