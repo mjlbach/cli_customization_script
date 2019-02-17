@@ -89,8 +89,10 @@ echo "tmux=$HOME/local/bin/tmux" >> $HOME/.bashrc
 
 Neovim is packaged as an appimage, which means that this script, as a whole, installs a somewhat deterministic mesh of the editor and plugins that *just works*. With one or two modifications, this entire script works with vanilla-vim. Honestly though, the two are almost identical. Neovim has more robust python/lua APIs for plugins, implemented asynchronous plugins first, and is helping encourage Bram to push vim forward.
 
+
 * Why? 
-I like programming on my remote machines because I rely on many plugins that become varying degrees of broken/slow on an sshfs or via editing with SCP using netrw. This script recaptures 90% of my development environment in less than a minute.
+
+I like programming diretly on my remote servers because I rely on many plugins that become varying degrees of broken/slow on an sshfs mount or opening with netrw (vim-fugitive, project searching with fzf/ctags). This script recaptures 90% of my development environment in less than a minute.
 
 ### Please send suggestions! 
 I'm always looking for new optimizations/tweaks. I try to keep the plugin count narrow, so if there's something vanilla-vim does better with < 20 lines of vimscript let me know.
