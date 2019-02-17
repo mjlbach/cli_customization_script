@@ -29,6 +29,17 @@ source $HOME/.bashrc
     * Language server support (pip install python-language-server[all] in any activated virtual environment)
     
 ### Musings on useful features (by no means exhaustive)
+* fd
+    * typing fd \[expression\] will find all files matching expression recursively in current directory. Basically like find . -name \[expression\] but significantly faster.
+* fzf
+    * if you type \<ctrl\><\r> you will have an interactive listing of all previous commands. 
+    * if you type \<ctrl\><\t> you will be able to populate a filename at current position of cursor. 
+    * if you type \<alt\><\c> you will be jump to the selected folder.
+    * if you type ** after a command and hit tab, you will have an interactive selector for files. (try nvim **)
+* exa
+    * exa is basically colored ls, same mappings. Try adding an alias ll="exa -alh"
+* rg
+    * rg is basically turbocharged grep. It's faster. Try rg import in the home directory of any python project to search for an import statement.
 * neovim
     * fzf
         * space is now leader key and most fzf commands are mapped to \<space\>\<key\>
