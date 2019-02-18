@@ -18,7 +18,7 @@ install_mosh(){
     make
     make install
     cd $HOME
-    rm -rf mosh-1.3.2
+    rm -rf mosh-1.3.2 mosh-1.3.2.tar.gz
 }
 
 install_apt_packages
