@@ -25,7 +25,7 @@ wget ftp://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz
 ############
 tar xvzf libevent-2.0.19-stable.tar.gz
 cd libevent-2.0.19-stable
-./configure --prefix=$HOME/local --disable-shared
+./configure --prefix=$HOME/.local --disable-shared
 make -j
 make install
 cd ..
