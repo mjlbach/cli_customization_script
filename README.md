@@ -26,7 +26,7 @@ source $HOME/.bashrc
 ```
 export CPPFLAGS="-P"
 curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/install_latest_tmux.sh -sSf | bash
-echo "tmux=$HOME/local/bin/tmux" >> $HOME/.bashrc
+echo "alias tmux=$HOME/local/bin/tmux" >> $HOME/.bashrc
 ```
 
 * If you would like the latest mosh (mobile-shell) which includes true color support.
