@@ -21,7 +21,7 @@ curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/update.sh -sSf |
 source $HOME/.bashrc
 ```
 
-* If you would like an up-to-date TMUX 2.8 includes true color support, otherwise your vim is not going to have the correct coloring inside tmux) and either A) Do not have root or B) don't want to add a PPA/backport to your stable server environment, run the included install tmux script and ensure that tmux is aliased to ~/local/bin/tmux in your bashrc.
+* If you would like an up-to-date TMUX 2.8 includes true color support, otherwise your vim is not going to have the correct coloring inside tmux) and either A) Do not have root or B) don't want to add a PPA/backport to your stable server environment, run the included install tmux script and ensure that tmux is aliased to ~/local/bin/tmux in your bashrc. Ensure libevent is installed (apt-get install libevent-dev)
 
 ```
 export CPPFLAGS="-P"
