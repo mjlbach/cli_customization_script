@@ -25,13 +25,20 @@ source $HOME/.bashrc
 
 ```
 export CPPFLAGS="-P"
-bash ./install_latest_tmux.sh
+curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/install_latest_tmux.sh -sSf | bash
 echo "tmux=$HOME/local/bin/tmux" >> $HOME/.bashrc
+```
+
+* If you would like the latest mosh (mobile-shell) which includes true color support.
+
+```
+curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/install_mosh.sh -sSf | bash
 ```
 
 ### Features
 
 * tmux
+* mosh
 * fzf 
 * bat
 * rg
@@ -55,6 +62,16 @@ echo "tmux=$HOME/local/bin/tmux" >> $HOME/.bashrc
     * exa is basically colored ls, same mappings. Try adding an alias ll="exa -alh"
 * rg
     * rg is basically turbocharged grep. It's faster. Try rg import in the home directory of any python project to search for an import statement.
+    
+* TMUX
+    * \<ctrl\>\<a\> is now the default tmux prefix, try holding control down while pressing a twice to switch panes.
+    * ctrl + vim hjkl bindings now in a unified way navigate you between vim and tmux
+    * If you installed with the included script, true colors and italics should work
+    
+* mosh
+   * mosh is an uniteruptible, almost lag-free UDP based remote shell that persists across reboots/dropped connections. The initial handshake uses ssh and thus can use your ssh alias. After installing try "mosh --server=~/local/bin/mosh-server REMOTE_HOST"
+   
+    
 * neovim
     * fzf
         * space is now leader key and most fzf commands are mapped to \<space\>\<key\>
