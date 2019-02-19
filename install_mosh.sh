@@ -1,5 +1,5 @@
 install_apt_packages(){
-    requirements=(perl protobuf-compiler libprotobuf-dev libncurses5-dev zlib1g-dev libutempter-dev libssl-dev pkg-config)
+    requirements=(git perl protobuf-compiler libprotobuf-dev libncurses5-dev zlib1g-dev libutempter-dev libssl-dev pkg-config)
     sudo apt update
     for package in ${requirements[@]}; do
         dpkg -s "$package" >/dev/null 2>&1 && {
@@ -11,14 +11,14 @@ install_apt_packages(){
 }
 
 install_mosh(){
-    curl -LO https://mosh.org/mosh-1.3.2.tar.gz
-    tar -xzf mosh-1.3.2.tar.gz
-    cd mosh-1.3.2
+    git clone https://github.com/mobile-shell/mosh.git
+    cd mosh
+    autoreconf -i
     ./configure --prefix=$HOME/local
     make
     make install
-    cd $HOME
-    rm -rf mosh-1.3.2 mosh-1.3.2.tar.gz
+    cd ..
+    rm -rf mosh
 }
 
 install_apt_packages
