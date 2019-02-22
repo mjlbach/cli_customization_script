@@ -70,7 +70,7 @@ Again, ensure that $HOME/local/bin is on your system path.
     * If you installed with the included script, true colors and italics should work
     
 * mosh
-   * mosh is an uniteruptible, almost lag-free UDP based remote shell that persists across reboots/dropped connections. The initial handshake uses ssh and thus can use your ssh alias. After installing try "mosh --server=~/local/bin/mosh-server REMOTE_HOST"
+   * mosh is an uniteruptible, almost lag-free UDP based remote shell that persists across reboots/dropped connections. The initial handshake uses ssh and thus can use your ssh alias. After installing try "mosh REMOTE_HOST"
    
     
 * neovim
