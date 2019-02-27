@@ -105,12 +105,14 @@ noremap <Space> <Nop>
 let mapleader="\<Space>"
 
 "Add move line shortcuts
-nnoremap <A-j> :m .+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
 inoremap <A-j> <Esc>:m .+1<CR>==gi
 inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
+nnoremap <A-j> :m .+1<CR>==
+
+"Remap increment keys from tmux binds
 
 "Remap escape to leave terminal mode
 "tnoremap <Esc> <C-\><C-n>
@@ -221,6 +223,12 @@ augroup END
 
 "Change preview window location
 set splitbelow
+
+"Remap number increment to alt
+nnoremap <A-a> <C-a>
+vnoremap <A-a> <C-a>
+nnoremap <A-x> <C-x>
+vnoremap <A-x> <C-x>
 
 "n always goes forward
 nnoremap <expr> n  'Nn'[v:searchforward]
