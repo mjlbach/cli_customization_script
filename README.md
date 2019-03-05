@@ -34,7 +34,11 @@ curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/install_latest_t
 curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/install_mosh.sh -sSf | bash
 ```
 
-Again, ensure that $HOME/local/bin is on your system path.
+Again, ensure that $HOME/local/bin is on your system path. Your client MOSH needs to also be the latest version (brew install mosh --HEAD).
+
+If you need to add the tmux-256color profile to your cluster:
+
+https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be
 
 ### Features
 
