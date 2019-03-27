@@ -257,9 +257,9 @@ let g:netrw_liststyle = 3
 let g:netrw_sort_sequence = '[\/]$,*'
 
 " use the previous window to open file
-let g:netrw_browse_split = 4
 let g:NetrwIsOpen=0
 
+" Sidebar toggle for Lexplore
 function! ToggleNetrw()
 
     if g:NetrwIsOpen
@@ -271,6 +271,7 @@ function! ToggleNetrw()
             let i-=1
         endwhile
         let g:NetrwIsOpen=0
+        let g:netrw_chgwin=-1
     else
         let g:NetrwIsOpen=1
         silent Lexplore
