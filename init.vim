@@ -265,10 +265,9 @@ let g:netrw_liststyle = 3
 " sort is affecting only: directories on the top, files below
 let g:netrw_sort_sequence = '[\/]$,*'
 
-" use the previous window to open file
-let g:netrw_browse_split = 4
 let g:NetrwIsOpen=0
 
+" Lexplore toggle function
 function! ToggleNetrw()
 
     if g:NetrwIsOpen
@@ -280,6 +279,7 @@ function! ToggleNetrw()
             let i-=1
         endwhile
         let g:NetrwIsOpen=0
+        let g:netrw_chgwin=-1
     else
         let g:NetrwIsOpen=1
         silent Lexplore
