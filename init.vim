@@ -252,22 +252,20 @@ augroup END
 " Clear white space on empty lines and end of line
 nnoremap <silent> <F6> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
 
-""" Nerdtree like sidepanel 
-" absolute width of netrw window
+" Netrw sidetree settings 
+
+" Absolute width of netrw window
 let g:netrw_winsize = -28
 
-" do not display info on the top of window
+" Do not display info on the top of window
 let g:netrw_banner = 0
 
-" tree-view
-let g:netrw_liststyle = 3
-
-" sort is affecting only: directories on the top, files below
+" Sort is affecting only: directories on the top, files below
 let g:netrw_sort_sequence = '[\/]$,*'
 
+" Toggle function for side-tree
 let g:NetrwIsOpen=0
 
-" Lexplore toggle function
 function! ToggleNetrw()
 
     if g:NetrwIsOpen
@@ -279,9 +277,11 @@ function! ToggleNetrw()
             let i-=1
         endwhile
         let g:NetrwIsOpen=0
+        let g:netrw_liststyle = 0
         let g:netrw_chgwin=-1
     else
         let g:NetrwIsOpen=1
+        let g:netrw_liststyle = 3
         silent Lexplore
     endif
 endfunction
