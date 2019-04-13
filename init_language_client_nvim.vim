@@ -21,7 +21,17 @@ Plug 'itchyny/lightline.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'lervag/vimtex'
 Plug 'mhinz/neovim-remote'
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'ncm2/ncm2'
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+Plug 'ncm2/ncm2-ultisnips'
+Plug 'roxma/nvim-yarp'
+Plug 'SirVer/ultisnips'
+
 
 call plug#end()
 
@@ -82,11 +92,10 @@ let g:lightline = {
        \ 'colorscheme': 'gruvbox',
        \ 'active': {
        \   'left': [ [ 'mode', 'paste' ],
-       \             [ 'cocstatus', 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
        \ },
        \ 'component_function': {
-       \   'gitbranch': 'fugitive#head',
-       \    'cocstatus': 'coc#status'
+       \   'gitbranch': 'fugitive#head'
        \ },
        \ }
 colorscheme gruvbox
@@ -243,19 +252,20 @@ augroup END
 " Clear white space on empty lines and end of line
 nnoremap <silent> <F6> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
 
-""" Nerdtree like sidepanel 
-" absolute width of netrw window
+" Netrw sidetree settings 
+
+" Absolute width of netrw window
 let g:netrw_winsize = -28
 
-" do not display info on the top of window
+" Do not display info on the top of window
 let g:netrw_banner = 0
 
-" sort is affecting only: directories on the top, files below
+" Sort is affecting only: directories on the top, files below
 let g:netrw_sort_sequence = '[\/]$,*'
 
+" Toggle function for side-tree
 let g:NetrwIsOpen=0
 
-" Lexplore toggle function
 function! ToggleNetrw()
 
     if g:NetrwIsOpen
@@ -280,105 +290,71 @@ endfunction
 noremap <silent> <leader>d :call ToggleNetrw()<CR><Paste>
 autocmd filetype netrw nmap <leader>; <cr>:wincmd W<cr>
 
-" COC options
+"Enable NCM2
+autocmd BufEnter * call ncm2#enable_for_buffer()
+set completeopt=noinsert,menuone,noselect
+"set completeopt-=preview
 
-" Smaller updatetime for CursorHold & CursorHoldI
-set updatetime=300
+"Configure LSP
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rls'],
+    \ 'python': ['pyls'],
+    \ 'cpp': ['cquery', '--log-file=/tmp/cq.log'],
+    \ 'c': ['cquery', '--log-file=/tmp/cq.log'],
+    \ }
 
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
+" \ 'python': ['pyls'],
+"Add global settings
+let g:LanguageClient_settingsPath = $HOME.'/.config/nvim/settings.json'
 
-" always show signcolumns
-set signcolumn=yes
+"Add mappings for different language client commands
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
+nnoremap <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" Press enter key to trigger snippet expansion
+" The parameters are the same as `:help feedkeys()`
+inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" c-j c-k for moving in snippet
+" let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
+let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
+let g:UltiSnipsRemoveSelectModeMappings = 0
 
-" Use <c-space> for trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Use `[c` and `]c` for navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K for show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for (re)format selected region
-vmap <leader>rf  <Plug>(coc-format-selected)
-nmap <leader>rf  <Plug>(coc-format-selected)
-
-augroup mygroup
+" Draw the signcolumn when language client neovim starts
+augroup LanguageClient_config
   autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
+  autocmd User LanguageClientStarted set signcolumn=yes 
+augroup END
 
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-vmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Use `:Format` for format current buffer
-command! -nargs=0 Format :call CocAction('format')
-
-" Use `:Fold` for fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Using CocList
-" Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands
-nnoremap <silent> <space>C  :<C-u>CocList commands<cr>
-" Find symbol of current document
-nnoremap <silent> <space>O  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <space>S  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest koc list
-nnoremap <silent> <space>P  :<C-u>CocListResume<CR>
+" Change default language client sign column settings 
+let g:LanguageClient_diagnosticsDisplay = {
+      \        1: {
+      \            "name": "Error",
+      \            "texthl": "ALEError",
+      \            "signText": ">>",
+      \            "signTexthl": "ALEErrorSign",
+      \        },
+      \        2: {
+      \            "name": "Warning",
+      \            "texthl": "ALEWarning",
+      \            "signText": ">>",
+      \            "signTexthl": "ALEWarningSign",
+      \        },
+      \        3: {
+      \            "name": "Information",
+      \            "texthl": "ALEInfo",
+      \            "signText": "ℹ",
+      \            "signTexthl": "ALEInfoSign",
+      \        },
+      \        4: {
+      \            "name": "Hint",
+      \            "texthl": "ALEInfo",
+      \            "signText": "➤",
+      \            "signTexthl": "ALEInfoSign",
+      \        },
+      \    }
