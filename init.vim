@@ -21,6 +21,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'lervag/vimtex'
 Plug 'mhinz/neovim-remote'
+Plug 'Yggdroot/indentLine'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
 call plug#end()
