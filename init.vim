@@ -23,6 +23,9 @@ Plug 'lervag/vimtex'
 Plug 'mhinz/neovim-remote'
 Plug 'Yggdroot/indentLine'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
 
 call plug#end()
 
@@ -169,12 +172,12 @@ command! -bang Gbranch call fzf#run({
 
 "Add preview to Rg togglable with question mark and add shellescape find git
 "root for searching top level git directory
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>).' '.shellescape(s:find_git_root()), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0) 
+" command! -bang -nargs=* Rg
+"   \ call fzf#vim#grep(
+"   \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>).' '.shellescape(s:find_git_root()), 1,
+"   \   <bang>0 ? fzf#vim#with_preview('up:60%')
+"   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+"   \   <bang>0) 
 
 " Search project root
 function! s:find_git_root()
@@ -182,23 +185,6 @@ function! s:find_git_root()
 endfunction
 
 command! ProjectFiles execute 'Files' s:find_git_root()
-
-function ProjectWrap()
-  call fzf#run({
-            \ 'source': "fd . '/Users/michael/Repositories'", 
-            \ 'sink': 'e' 
-            \ })
-  exec Glcd
-endfunction
-
-
-" Search all git projects in ~/Repositories
-command! -bang Projects call fzf#run({
-            \ 'source': "fd . '~/Repositories'", 
-            \ 'sink': 'e' 
-            \ })
-
-map <silent> <leader>p :Projects<CR>
 
 " Make gutentags use ripgrep
 let g:gutentags_file_list_command = 'rg --files'
