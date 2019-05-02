@@ -188,6 +188,7 @@ command! ProjectFiles execute 'Files' s:find_git_root()
 
 " Make gutentags use ripgrep
 let g:gutentags_file_list_command = 'rg --files'
+let g:gutentags_ctags_extra_args = ['-n', '-u']
 
 "Set vim dispatch filetype options
 nnoremap <F9> :Dispatch<CR>
