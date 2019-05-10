@@ -22,10 +22,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'lervag/vimtex'
 Plug 'mhinz/neovim-remote'
 Plug 'Yggdroot/indentLine'
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
 
 call plug#end()
 
@@ -269,6 +266,7 @@ noremap <silent> <leader>d :call ToggleNetrw()<CR><Paste>
 autocmd filetype netrw nmap <leader>; <cr>:wincmd W<cr>
 
 " COC options
+let g:coc_global_extensions = ['coc-lists', 'coc-json', 'coc-python']
 
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300
