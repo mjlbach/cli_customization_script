@@ -161,6 +161,11 @@ nnoremap <silent> <leader>s :Rg<CR>
 nnoremap <silent> <leader>c :Commits<CR>
 nnoremap <silent> <leader>b :Gbranch<CR>
 
+"Alternative shortcut without using fzf
+nnoremap <leader>, :buffer *
+nnoremap <leader>. :e<space>**/
+nnoremap <leader>g :tjump *
+
 function! s:changebranch(branch) 
     execute 'Git checkout' . a:branch
     call feedkeys("i")
