@@ -22,6 +22,8 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'lervag/vimtex'
 Plug 'mhinz/neovim-remote'
 Plug 'Yggdroot/indentLine'
+Plug 'sheerun/vim-polyglot'
+Plug 'jpalardy/vim-slime'
 Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
 
 call plug#end()
@@ -117,10 +119,12 @@ nnoremap <F10> :call ToggleMouse()<CR>
 
 function! ToggleMouse()
   if &mouse == 'a'
+    IndentLinesDisable
     set mouse=v
     set nonu
     echo "Mouse usage Visual"
   else
+    IndentLinesEnable
     set mouse=a
     set nu
     echo "Mouse usage All"
@@ -186,6 +190,10 @@ command! ProjectFiles execute 'Files' s:find_git_root()
 " Make gutentags use ripgrep
 let g:gutentags_file_list_command = 'rg --files'
 let g:gutentags_ctags_extra_args = ['-n', '-u']
+
+" Configure vim slime to use tmux
+let g:slime_target = "tmux"
+let g:slime_default_config = {"socket_name": "default", "target_pane": "{right-of}"}
 
 "Set vim dispatch filetype options
 nnoremap <F9> :Dispatch<CR>
@@ -264,6 +272,9 @@ endfunction
 " Open netrw sidebar and open preview of file under cursor with ;
 noremap <silent> <leader>d :call ToggleNetrw()<CR><Paste>
 autocmd filetype netrw nmap <leader>; <cr>:wincmd W<cr>
+
+" Vim polyglot language specific settings
+let g:python_highlight_space_errors = 0
 
 " COC options
 let g:coc_global_extensions = ['coc-lists', 'coc-json', 'coc-python']
