@@ -93,7 +93,7 @@ let g:lightline = {
        \ },
        \ }
 colorscheme gruvbox
-" 
+ 
 "Remap space as leader key
 noremap <Space> <Nop>
 let mapleader="\<Space>"
@@ -160,21 +160,30 @@ nnoremap <silent> <leader>? :History<CR>
 nnoremap <silent> <leader>s :Rg<CR>
 nnoremap <silent> <leader>c :Commits<CR>
 nnoremap <silent> <leader>b :Gbranch<CR>
+nnoremap <silent> <leader>p :Projects<CR>
 
 "Alternative shortcut without using fzf
 nnoremap <leader>, :buffer *
 nnoremap <leader>. :e<space>**/
 nnoremap <leader>g :tjump *
 
-function! s:changebranch(branch) 
-    execute 'Git checkout' . a:branch
-    call feedkeys("i")
+" Intelligent switching of branches
+function! s:gitCheckoutRef(ref) 
+    execute('Git checkout ' . a:ref)
+    " call feedkeys("i")
 endfunction
 
-command! -bang Gbranch call fzf#run({
-            \ 'source': 'git branch -a --no-color | grep -v "^\* " ', 
-            \ 'sink': function('s:changebranch')
-            \ })
+function! s:gitListRefs()
+   let l:refs = execute("Git for-each-ref --format='\\%(refname:short)'")
+   return split(l:refs,'\r\n*')[1:] "jump past the first line which is the git command
+endfunction
+
+command! -bang Gbranch call fzf#run({ 'source': s:gitListRefs(), 'sink': function('s:gitCheckoutRef'), 'dir':expand('%:p:h') })
+
+" Search project root
+function! s:find_git_root()
+  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+endfunction
 
 "Add preview to Rg togglable with question mark and add shellescape find git
 "root for searching top level git directory
@@ -185,12 +194,22 @@ command! -bang -nargs=* Rg
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0) 
 
-" Search project root
-function! s:find_git_root()
-  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+"Add command for searching files within current git directory structure
+command! ProjectFiles execute 'Files' s:find_git_root()
+
+function! s:switch_project()
+  let repository_directory = $HOME.'/Repositories'
+  let command = 'fd -t d --maxdepth 2 . ' . repository_directory 
+
+  call fzf#run({
+        \ 'source': command,
+        \ 'sink':   'cd',
+        \ 'options': '-m -x +s',
+        \ 'window':  'enew' })
+
 endfunction
 
-command! ProjectFiles execute 'Files' s:find_git_root()
+command! Projects call s:switch_project()
 
 " Make gutentags use ripgrep
 let g:gutentags_file_list_command = 'rg --files'
@@ -205,10 +224,9 @@ nnoremap <F9> :Dispatch<CR>
 augroup Dispatch
   autocmd!
   autocmd FileType python let b:dispatch = 'python %'
-  autocmd FileType cpp let b:dispatch = 'make -j4 ./build'
-  "autocmd FileType cpp let b:dispatch = 'clang++ % -std=c++11 -g'
+  autocmd FileType cpp let b:dispatch = 'make ./build'
   autocmd FileType rust let b:dispatch = 'rustc %'
-augroup END 
+augroup end 
 
 "Change preview window location
 set splitbelow
@@ -236,7 +254,7 @@ let g:python_host_prog=$HOME.'/.virtualenvs/neovim2/bin/python'
 augroup JSON 
   autocmd!
   autocmd FileType json setlocal formatprg=jq\ .
-augroup END
+augroup end
 
 " Clear white space on empty lines and end of line
 nnoremap <silent> <F6> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
@@ -311,7 +329,7 @@ inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use `[c` and `]c` for navigate diagnostics
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
