@@ -24,7 +24,7 @@ Plug 'mhinz/neovim-remote'
 Plug 'Yggdroot/indentLine'
 Plug 'sheerun/vim-polyglot'
 Plug 'jpalardy/vim-slime'
-Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
+Plug 'neoclide/coc.nvim', {'tag': '*','do': './install.sh'}
 
 call plug#end()
 
