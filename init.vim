@@ -17,6 +17,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'morhetz/gruvbox'
+Plug 'joshdick/onedark.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'lervag/vimtex'
@@ -24,7 +25,7 @@ Plug 'mhinz/neovim-remote'
 Plug 'Yggdroot/indentLine'
 Plug 'sheerun/vim-polyglot'
 Plug 'jpalardy/vim-slime'
-Plug 'neoclide/coc.nvim', {'tag': '*','do': './install.sh'}
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
 call plug#end()
 
@@ -66,6 +67,10 @@ set directory=$HOME/.vim/swap//
 set undodir=$HOME/.vim/undo//
 set undofile
 
+"Remove backups for coc
+set nobackup
+set nowritebackup
+
 "Case insensitive searching UNLESS /C or capital in search
 set ignorecase
 set smartcase
@@ -76,23 +81,31 @@ if exists('$TMUX')
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
+" CocCurrentFunction
+function! CocCurrentFunction()
+    return get(b:, 'coc_current_function', '')
+endfunction
+
 "Set colorscheme
+colorscheme onedark 
 set termguicolors
-set background=dark
-let g:gruvbox_sign_column='bg0'
-let g:gruvbox_italic=1
+" set background=dark
+" let g:gruvbox_sign_column='bg0'
+" let g:gruvbox_italic=1
+let g:onedark_terminal_italics=1
 let g:lightline = {
-       \ 'colorscheme': 'gruvbox',
+       \ 'colorscheme': 'onedark',
        \ 'active': {
        \   'left': [ [ 'mode', 'paste' ],
-       \             [ 'cocstatus', 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+       \             [ 'cocstatus', 'gitbranch', 'readonly', 'filename', 'modified', 'currentfunction'] ]
        \ },
        \ 'component_function': {
        \   'gitbranch': 'fugitive#head',
-       \    'cocstatus': 'coc#status'
+       \   'cocstatus': 'coc#status',
+       \   'currentfunction': 'CocCurrentFunction'
        \ },
        \ }
-colorscheme gruvbox
+
  
 "Remap space as leader key
 noremap <Space> <Nop>
@@ -223,11 +236,14 @@ let g:slime_default_config = {"socket_name": "default", "target_pane": "{right-o
 nnoremap <F9> :Dispatch<CR>
 augroup Dispatch
   autocmd!
-  autocmd FileType python let b:dispatch = 'python %'
+  autocmd FileType python let b:dispatch = 'flake8 $(git rev-parse --show-toplevel)/**/*.py'
   autocmd FileType cpp let b:dispatch = 'make ./build'
   autocmd FileType rust let b:dispatch = 'rustc %'
 augroup end 
 
+augroup Python
+  autocmd FileType python setlocal makeprg=flake8
+augroup end 
 "Change preview window location
 set splitbelow
 
@@ -345,7 +361,7 @@ nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-  if &filetype == 'vim'
+  if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   else
     call CocAction('doHover')
@@ -379,11 +395,14 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
 nmap <leader>qf  <Plug>(coc-fix-current)
 
-" Use `:Format` for format current buffer
+" Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
 
-" Use `:Fold` for fold current buffer
+" Use `:Fold` to fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport'
 
 " Using CocList
 " Show all diagnostics
