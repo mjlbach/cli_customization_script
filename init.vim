@@ -25,11 +25,13 @@ Plug 'mhinz/neovim-remote'
 Plug 'Yggdroot/indentLine'
 Plug 'sheerun/vim-polyglot'
 Plug 'jpalardy/vim-slime'
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'edkolev/tmuxline.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
 "Allow filetype plugins and syntax highlighting 
+set autoindent
 filetype plugin indent on
 syntax on
 
@@ -37,10 +39,10 @@ syntax on
 set backspace=indent,eol,start
 
 "Set tab options for vim
-set expandtab
 set tabstop=8
 set softtabstop=4
 set shiftwidth=4
+set expandtab
 
 "Set highlight on search
 set nohlsearch
@@ -145,7 +147,9 @@ function! ToggleMouse()
 endfunction
 
 "Set no expandtab on makefile
-autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
+augroup Make
+  autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
+augroup end
 
 "Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -285,6 +289,7 @@ let g:netrw_banner = 0
 " sort is affecting only: directories on the top, files below
 let g:netrw_sort_sequence = '[\/]$,*'
 
+" variable for use by ToggleNetrw function
 let g:NetrwIsOpen=0
 
 " Lexplore toggle function
@@ -310,7 +315,11 @@ endfunction
 
 " Open netrw sidebar and open preview of file under cursor with ;
 noremap <silent> <leader>d :call ToggleNetrw()<CR><Paste>
-autocmd filetype netrw nmap <leader>; <cr>:wincmd W<cr>
+
+" Function to open preview of file under netrw
+augroup Netrw
+  autocmd filetype netrw nmap <leader>; <cr>:wincmd W<cr>
+augroup end
 
 " Vim polyglot language specific settings
 let g:python_highlight_space_errors = 0

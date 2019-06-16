@@ -49,7 +49,7 @@ make_virtual_envs(){
     if [ ! -f $HOME/.virtualenvs/neovim3/bin/activate  ]; then 
         python3 -m venv $HOME/.virtualenvs/neovim3
         source $HOME/.virtualenvs/neovim3/bin/activate
-        pip install -U pynvim
+        pip install -U pynvim flake8 black
         deactivate
     fi
 }
@@ -69,15 +69,19 @@ install_rust_dependencies(){
     cargo install exa
 }
 
-customize_tmux(){
+install_configs(){
     curl -fLo ~/.tmux.conf \
     https://raw.githubusercontent.com/mjlbach/vim_it_up/master/.tmux.conf
+    curl -fLo ~/.config/nvim/coc-settings.json \
+    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/coc-settings.json
+    curl -fLo ~/.config/flake8 \
+    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/flake8
 }
 
 install_neovim(){
     if [ "$(uname)" == "Darwin" ]
     then 
-        brew install neovim
+        brew install neovim --HEAD
         echo "MacOS"
     elif [ "$(uname)" == "Linux" ]
     then
@@ -121,6 +125,6 @@ uninstall_neovim(){
 backup_configurations
 install_apt_packages
 make_virtual_envs
-customize_tmux
+install_configs
 install_rust_dependencies
 install_neovim

@@ -19,6 +19,12 @@ update(){
     curl -fLo ~/.config/nvim/init.vim --create-dirs \
     https://raw.githubusercontent.com/mjlbach/vim_it_up/master/init.vim
 
+    curl -fLo ~/.config/nvim/coc-settings.json \
+    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/coc-settings.json
+
+    curl -fLo ~/.config/flake8 \
+    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/flake8.conf
+
     $HOME/.neovim/nvim.appimage +PlugInstall +qall 
 }
 
