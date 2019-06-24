@@ -66,6 +66,7 @@ install_rust_dependencies(){
     cargo install ripgrep
     cargo install bat
     cargo install fd-find
+    cargo install sd
     cargo install exa
 }
 
@@ -78,6 +79,16 @@ install_configs(){
     https://raw.githubusercontent.com/mjlbach/vim_it_up/master/flake8
 }
 
+install_node(){
+    if ! [ -x "$(command -v node)" ]; then
+      curl -L https://git.io/n-install | bash
+      source $HOME/.profile
+      source $HOME/.bashrc
+      curl -o- -L https://yarnpkg.com/install.sh | bash
+      source $HOME/.profile
+      source $HOME/.bashrc
+    else
+}
 install_neovim(){
     if [ "$(uname)" == "Darwin" ]
     then 

@@ -1,6 +1,7 @@
 update(){
     rustup update
     cargo install --force exa 
+    cargo install --force sd 
     cargo install --force fd-find
     cargo install --force ripgrep 
     cargo install --force bat
