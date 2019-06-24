@@ -87,7 +87,7 @@ install_node(){
       curl -o- -L https://yarnpkg.com/install.sh | bash
       source $HOME/.profile
       source $HOME/.bashrc
-    else
+    fi
 }
 install_neovim(){
     if [ "$(uname)" == "Darwin" ]
@@ -135,6 +135,7 @@ uninstall_neovim(){
 
 backup_configurations
 install_apt_packages
+install_node
 make_virtual_envs
 install_configs
 install_rust_dependencies
