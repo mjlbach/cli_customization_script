@@ -1,8 +1,6 @@
 ### Requirements
 
-* Ubuntu 16.04 or 18.04 (maybe any debian based system? Not sure about package names...)
-* Any linux system if you modify package manager commands
-* Bash (probably any POSIX compliant shell)
+* Ubuntu 16.04 or 18.04
 
 ### Instructions
  

@@ -114,11 +114,11 @@ noremap <Space> <Nop>
 let mapleader="\<Space>"
 
 "Add move line shortcuts
-nnoremap <A-k> :m .-2<CR>==
+nnoremap <A-k> :m .-1<CR>==
 inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
+inoremap <A-k> <Esc>:m .-1<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
+vnoremap <A-k> :m '<-1<CR>gv=gv
 nnoremap <A-j> :m .+1<CR>==
 
 "Remap increment keys from tmux binds
@@ -420,6 +420,8 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 
 
 " Using CocList
+nnoremap <silent> <space>L  :<C-u>CocList<cr>
+
 " Show all diagnostics
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
