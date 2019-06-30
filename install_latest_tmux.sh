@@ -25,7 +25,7 @@ wget https://ftp.gnu.org/pub/gnu/ncurses/ncurses-${NCURSES_VERSION}.tar.gz
 tar xvzf libevent-${LIBEVENT_VERSION}.tar.gz
 cd libevent-${LIBEVENT_VERSION}
 ./configure --prefix=$HOME/local --disable-shared
-make
+make -j
 make install
 cd ..
 
@@ -35,7 +35,7 @@ cd ..
 tar xvzf ncurses-${NCURSES_VERSION}.tar.gz
 cd ncurses-${NCURSES_VERSION}
 ./configure --prefix=$HOME/local
-make 
+make -j
 make install
 cd ..
 
@@ -45,7 +45,7 @@ cd ..
 tar xvzf tmux-${TMUX_VERSION}.tar.gz
 cd tmux-${TMUX_VERSION}
 ./configure CFLAGS="-I$HOME/local/include -I$HOME/local/include/ncurses" LDFLAGS="-L$HOME/local/lib -L$HOME/local/include/ncurses -L$HOME/local/include"
-CPPFLAGS="-I$HOME/local/include -I$HOME/local/include/ncurses" LDFLAGS="-static -L$HOME/local/include -L$HOME/local/include/ncurses -L$HOME/local/lib" make
+CPPFLAGS="-I$HOME/local/include -I$HOME/local/include/ncurses" LDFLAGS="-static -L$HOME/local/include -L$HOME/local/include/ncurses -L$HOME/local/lib" make -j
 cp tmux $HOME/local/bin
 cd ..
 

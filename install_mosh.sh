@@ -15,7 +15,7 @@ install_mosh(){
     cd mosh
     autoreconf -i
     ./configure --prefix=$HOME/local
-    make
+    make -j
     make install
     cd ..
     rm -rf mosh
