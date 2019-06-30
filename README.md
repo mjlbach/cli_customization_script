@@ -29,12 +29,16 @@ You may need to add the [tmux-256color](https://medium.com/@dubistkomisch/how-to
 ```
 echo "xterm-256color-italic|xterm with 256 colors and italic,
   sitm=\E[3m, ritm=\E[23m,
-  use=xterm-256color," > xterm-256color-italic.terminfo" && tic -x xterm-256color-italic.terminfo && rm xterm-256color-italic.terminfo"
+  use=xterm-256color," > xterm-256color-italic.terminfo" \
+  && tic -x xterm-256color-italic.terminfo \ 
+  && rm xterm-256color-italic.terminfo"
   
-  echo "tmux-256color|tmux with 256 colors,
+echo "tmux-256color|tmux with 256 colors,
   ritm=\E[23m, rmso=\E[27m, sitm=\E[3m, smso=\E[7m, Ms@,
   khome=\E[1~, kend=\E[4~,
-  use=xterm-256color, use=screen-256color," > tmux-256color.terminfo" && tic -x tmux-256color.terminfo && rm tmux-256color.terminfo"
+  use=xterm-256color, use=screen-256color," > tmux-256color.terminfo" \
+  && tic -x tmux-256color.terminfo && \
+  rm tmux-256color.terminfo"
 ``` 
 
 * If you would like the latest mosh (mobile-shell) which includes true color support, run the following compile script. Note that this installs mosh server & client on your remote host, your client MOSH needs to also be the latest version (for example: brew install mosh --HEAD on macOS or running the same buidl script on your local linux machine).
