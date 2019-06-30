@@ -49,6 +49,13 @@ curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/install_mosh.sh 
 
 Ensure that $HOME/local/bin is on your system path, ahead of /usr/bin to use the locally installed tmux and mosh.
 
+If you are using Salt to manage a cluster, you can run one of these scripts across all of your nodes by the following command:
+
+```
+sudo salt '*' cmd.run runas=mjlbach 'curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/install_l
+atest_tmux.sh -sSf | bash'
+```
+
 ### Features
 
 * tmux - terminal multiplexer
