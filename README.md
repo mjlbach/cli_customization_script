@@ -105,7 +105,7 @@ atest_tmux.sh -sSf | bash'
         * \<space\>l pulls up a list of all lines in your current buffer. 
      
      * Language server
-        * Ensure flake8, rope, and jedi are installed in your current virtualenvironment or user site-packages
+        * Ensure flake8, rope, black, and jedi are installed in your current virtualenvironment or user site-packages
         * gd in normal mode jumps to the definition of the method of your cursor across projects.
         * \<shift\>\<K\> in normal mode pulls up the definition of your method (including your own defined docstrings\>
         * \<space\>rn renames the current symbol
