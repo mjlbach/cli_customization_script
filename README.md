@@ -22,7 +22,7 @@ source $HOME/.bashrc
 * The tmux available in most package managers is out of date. TMUX 2.9a includes true color support amongst others improvements. Run the following command to compile and install:
 
 ```
-curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/install_latest_tmux.sh -sSf | bash
+curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/install_tmux.sh -sSf | bash
 ```
 You may need to add the [tmux-256color](https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be) profile to your cluster:
 
