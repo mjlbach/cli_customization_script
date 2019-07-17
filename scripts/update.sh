@@ -15,16 +15,16 @@ update(){
     pip install -U pynvim
 
     curl -fLo ~/.tmux.conf \
-    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/.tmux.conf
+    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/configs/tmux/tmux.conf
 
     curl -fLo ~/.config/nvim/init.vim --create-dirs \
-    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/init.vim
+    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/configs/vim/init.vim
 
     curl -fLo ~/.config/nvim/coc-settings.json \
-    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/coc-settings.json
+    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/configs/vim/coc-settings.json
 
     curl -fLo ~/.config/flake8 \
-    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/flake8.conf
+    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/configs/vim/flake8.conf
 
     $HOME/.neovim/nvim.appimage +PlugInstall +qall 
 }

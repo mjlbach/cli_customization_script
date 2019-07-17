@@ -72,11 +72,11 @@ install_rust_dependencies(){
 
 install_configs(){
     curl -fLo ~/.tmux.conf \
-    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/.tmux.conf
+    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/configs/tmux/tmux.conf
     curl -fLo ~/.config/nvim/coc-settings.json \
-    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/coc-settings.json
+    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/configs/vim/coc-settings.json
     curl -fLo ~/.config/flake8 \
-    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/flake8
+    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/configs/vim/flake8
 }
 
 install_node(){

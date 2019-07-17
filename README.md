@@ -8,21 +8,21 @@
 
 ```
 
-curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/vimitup.sh -sSf | bash 
+curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/vimitup.sh -sSf | bash 
 source $HOME/.bashrc
 
 ```
 
 * To upgrade your config, run the following commands. This does not backup your configuration files and will overwrite your tmux and neovim config:
 ```
-curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/update.sh -sSf | bash 
+curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/update.sh -sSf | bash 
 source $HOME/.bashrc
 ```
 
 * The tmux available in most package managers is out of date. TMUX 2.9a includes true color support amongst others improvements. Run the following command to compile and install:
 
 ```
-curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/install_tmux.sh -sSf | bash
+curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/install_tmux.sh -sSf | bash
 ```
 You may need to add the [tmux-256color](https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be) profile to your cluster:
 
@@ -44,7 +44,7 @@ echo "tmux-256color|tmux with 256 colors,
 * If you would like the latest mosh (mobile-shell) which includes true color support, run the following compile script. Note that this installs mosh server & client on your remote host, your client MOSH needs to also be the latest version (for example: brew install mosh --HEAD on macOS or running the same buidl script on your local linux machine).
 
 ```
-curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/install_mosh.sh -sSf | bash
+curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/install_mosh.sh -sSf | bash
 ```
 
 Ensure that $HOME/local/bin is on your system path, ahead of /usr/bin to use the locally installed tmux and mosh.
@@ -52,7 +52,7 @@ Ensure that $HOME/local/bin is on your system path, ahead of /usr/bin to use the
 If you are using Salt to manage a cluster, you can run one of these scripts across all of your nodes by the following command:
 
 ```
-sudo salt '*' cmd.run runas=mjlbach 'curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/install_l
+sudo salt '*' cmd.run runas=mjlbach 'curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/install_l
 atest_tmux.sh -sSf | bash'
 ```
 
