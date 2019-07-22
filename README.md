@@ -47,13 +47,19 @@ echo "tmux-256color|tmux with 256 colors,
 curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/install_mosh.sh -sSf | bash
 ```
 
-Ensure that $HOME/local/bin is on your system path, ahead of /usr/bin to use the locally installed tmux and mosh.
+* To use vim instead of neovim, run the following script to download, compile and customize vanilla vim. 
+
+```
+curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/install_vim.sh -sSf | bash
+```
+
+Ensure that $HOME/local/bin is on your system path, ahead of /usr/bin to use the locally installed tmux, vim, and mosh.
 
 If you are using Salt to manage a cluster, you can run one of these scripts across all of your nodes by the following command:
 
 ```
-sudo salt '*' cmd.run runas=mjlbach 'curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/install_l
-atest_tmux.sh -sSf | bash'
+sudo salt '*' cmd.run runas=mjlbach 'curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/install_
+_tmux.sh -sSf | bash'
 ```
 
 ### Features
