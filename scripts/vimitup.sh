@@ -113,7 +113,7 @@ install_neovim(){
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
     curl -fLo ~/.config/nvim/init.vim --create-dirs \
-    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/init.vim
+    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/configs/vim/init.vim
 
     $HOME/.neovim/nvim.appimage +PlugInstall +qall 
 }
