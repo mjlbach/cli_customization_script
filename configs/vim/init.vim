@@ -215,12 +215,11 @@ command! -bang -nargs=* Rg
 command! ProjectFiles execute 'Files' s:find_git_root()
 
 function! s:switch_project()
-  let repository_directory = $HOME.'/Repositories'
-  let command = 'fd -t d --maxdepth 2 . ' . repository_directory 
+  let command = 'fd -H -t d --maxdepth 3 .git ' . $HOME . ' | sed -En "s/\/.git//p"'
 
   call fzf#run({
         \ 'source': command,
-        \ 'sink':   'cd',
+        \ 'sink':   'lcd',
         \ 'options': '-m -x +s',
         \ 'window':  'enew' })
 
@@ -405,9 +404,9 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-nmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
+" nmap <silent> <TAB> <Plug>(coc-range-select)
+" xmap <silent> <TAB> <Plug>(coc-range-select)
+" xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
