@@ -27,6 +27,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'jpalardy/vim-slime'
 Plug 'edkolev/tmuxline.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'puremourning/vimspector'
 
 call plug#end()
 
