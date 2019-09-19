@@ -449,3 +449,6 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>P  :<C-u>CocListResume<CR>
+
+" Add workspace folder support
+autocmd FileType python let b:coc_root_patterns = ['.git', '.env']
