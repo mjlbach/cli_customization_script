@@ -29,6 +29,8 @@ update(){
     curl -fLo $HOME/.neovim/nvim.appimage \
     https://github.com/neovim/neovim/releases/download/v0.4.2/nvim.appimage
 
+    chmod +x $HOME/.neovim/nvim.appimage
+    
     $HOME/.neovim/nvim.appimage +PlugInstall +qall 
 }
 
