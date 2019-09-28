@@ -24,7 +24,7 @@ update(){
     https://raw.githubusercontent.com/mjlbach/vim_it_up/master/configs/vim/coc-settings.json
 
     curl -fLo ~/.config/flake8 \
-    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/configs/vim/flake8.conf
+    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/configs/vim/flake8
 
     $HOME/.neovim/nvim.appimage +PlugInstall +qall 
 }
