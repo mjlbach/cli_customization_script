@@ -26,8 +26,9 @@ update(){
     curl -fLo ~/.config/flake8 \
     https://raw.githubusercontent.com/mjlbach/vim_it_up/master/configs/vim/flake8
     
-    curl -fLo $HOME/.neovim/nvim.appimage https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-    
+    curl -fLo $HOME/.neovim/nvim.appimage \
+    https://github.com/neovim/neovim/releases/download/v0.4.2/nvim.appimage
+
     $HOME/.neovim/nvim.appimage +PlugInstall +qall 
 }
 
