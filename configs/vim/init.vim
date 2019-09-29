@@ -139,11 +139,13 @@ nnoremap <F10> :call ToggleMouse()<CR>
 function! ToggleMouse()
   if &mouse == 'a'
     IndentLinesDisable
+    set signcolumn=no
     set mouse=v
     set nonu
     echo "Mouse usage Visual"
   else
     IndentLinesEnable
+    set signcolumn=yes
     set mouse=a
     set nu
     echo "Mouse usage All"
