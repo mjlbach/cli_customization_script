@@ -237,6 +237,9 @@ command! Projects call s:switch_project()
 let g:gutentags_file_list_command = 'rg --files'
 let g:gutentags_ctags_extra_args = ['-n', '-u']
 
+" speed up indent line
+let g:indentLine_faster = 1
+
 " Configure vim slime to use tmux
 let g:slime_target = "tmux"
 let g:slime_default_config = {"socket_name": "default", "target_pane": "{right-of}"}
