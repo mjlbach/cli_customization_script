@@ -139,11 +139,13 @@ nnoremap <F10> :call ToggleMouse()<CR>
 function! ToggleMouse()
   if &mouse == 'a'
     IndentLinesDisable
+    set signcolumn=no
     set mouse=v
     set nonu
     echo "Mouse usage Visual"
   else
     IndentLinesEnable
+    set signcolumn=yes
     set mouse=a
     set nu
     echo "Mouse usage All"
@@ -234,6 +236,9 @@ command! Projects call s:switch_project()
 " Make gutentags use ripgrep
 let g:gutentags_file_list_command = 'rg --files'
 let g:gutentags_ctags_extra_args = ['-n', '-u']
+
+" speed up indent line
+let g:indentLine_faster = 1
 
 " Configure vim slime to use tmux
 let g:slime_target = "tmux"
@@ -449,3 +454,6 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>P  :<C-u>CocListResume<CR>
+
+" Add workspace folder support
+autocmd FileType python let b:coc_root_patterns = ['.git', '.env']
