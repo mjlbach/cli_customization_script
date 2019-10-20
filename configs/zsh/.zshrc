@@ -1,6 +1,7 @@
-# Dircolors and LS_colors
-export CLICOLOR=1
-eval $( gdircolors -b $HOME/.dircolors )
+# Enable Powerlevel10k instant prompt. Should stay at the top of ~/.zshrc.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 # Completion
 autoload -U compinit 
@@ -133,6 +134,7 @@ source ~/.config/shell/powerlevel10k/config/p10k-lean.zsh
 
 #Aliases
 alias upgrade="git -C ~/.config/shell/z.lua pull && git -C ~/.config/shell/powerlevel10k pull"
+
 alias ls="gls --color=auto"
 alias ll="exa -alht changed"
 alias l="exa"
@@ -148,3 +150,6 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # Set environmental variables
 export EDITOR="nvim"
 export WORKON_HOME="$HOME/.virtualenvs"
+
+# Finalize Powerlevel10k instant prompt. Should stay at the bottom of ~/.zshrc.
+(( ! ${+functions[p10k-instant-prompt-finalize]} )) || p10k-instant-prompt-finalize
