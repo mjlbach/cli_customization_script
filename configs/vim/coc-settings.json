@@ -3,6 +3,7 @@
   "suggest.autoTrigger": "trigger",
   "python.linting.pylintEnabled": false,
   "python.linting.flake8Enabled": true,
+  "python.jediEnabled": false,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "languageserver": {
     "ccls": {
