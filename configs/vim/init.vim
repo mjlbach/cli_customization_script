@@ -11,6 +11,7 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
+Plug 'mhinz/vim-startify'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'junegunn/vim-easy-align'
@@ -91,9 +92,6 @@ endfunction
 "Set colorscheme
 colorscheme onedark 
 set termguicolors
-" set background=dark
-" let g:gruvbox_sign_column='bg0'
-" let g:gruvbox_italic=1
 let g:onedark_terminal_italics=1
 let g:lightline = {
        \ 'colorscheme': 'onedark',
@@ -157,6 +155,13 @@ augroup Make
   autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
 augroup end
 
+augroup Startify
+  autocmd User Startified setlocal buflisted
+augroup end
+
+let g:startify_session_autoload = 1
+let g:startify_session_persistence = 1
+
 "Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 
@@ -181,14 +186,28 @@ nnoremap <silent> <leader>o :BTags<CR>
 nnoremap <silent> <leader>t :Tags<CR>
 nnoremap <silent> <leader>? :History<CR>
 nnoremap <silent> <leader>s :Rg<CR>
-nnoremap <silent> <leader>c :Commits<CR>
-nnoremap <silent> <leader>b :Gbranch<CR>
 nnoremap <silent> <leader>p :Projects<CR>
+
+" Add FZF and Vim Fugitive Shorcuts
+nnoremap <silent> <leader>gc :Commits<CR>
+nnoremap <silent> <leader>gb :Gbranch<CR>
+nnoremap <silent> <leader>ga :Git add %:p<CR><CR>
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
+nnoremap <silent> <leader>ge :Gedit<CR>
+nnoremap <silent> <leader>gr :Gread<CR>
+nnoremap <silent> <leader>gw :Gwrite<CR><CR>
+nnoremap <silent> <leader>gl :silent! Glog<CR>:bot copen<CR>
+nnoremap <silent> <leader>gp :Ggrep<Space>
+nnoremap <silent> <leader>gm :Gmove<Space>
+nnoremap <silent> <leader>go :Git checkout<Space>
+nnoremap <silent> <leader>gps :Dispatch! git push<CR>
+nnoremap <silent> <leader>gpl :Dispatch! git pull<CR>
 
 "Alternative shortcut without using fzf
 nnoremap <leader>, :buffer *
 nnoremap <leader>. :e<space>**/
-nnoremap <leader>g :tjump *
+nnoremap <leader>T :tjump *
 
 " Intelligent switching of branches
 function! s:gitCheckoutRef(ref) 
@@ -220,14 +239,19 @@ command! -bang -nargs=* Rg
 "Add command for searching files within current git directory structure
 command! ProjectFiles execute 'Files' s:find_git_root()
 
-function! s:switch_project()
-  let command = 'fd -H -t d --maxdepth 3 .git ' . $HOME . ' | sed -En "s/\/.git//p"'
+function! s:change_working_directory(path)
+    execute 'cd' a:path
+    execute 'edit' a:path
+endfunction
 
-  call fzf#run({
+function! s:switch_project()
+  let command = 'fd -H -t d --maxdepth 4 .git ' . $HOME . "/Repositories" . ' | sed -En "s/\/.git//p"'
+
+  call fzf#run(fzf#wrap({
         \ 'source': command,
-        \ 'sink':   'lcd',
         \ 'options': '-m -x +s',
-        \ 'window':  'enew' })
+        \ 'sink' : {path -> s:change_working_directory(path)}, 
+        \ 'window':  'enew' }))
 
 endfunction
 
@@ -238,10 +262,22 @@ let g:gutentags_file_list_command = 'rg --files'
 let g:gutentags_ctags_extra_args = ['-n', '-u']
 
 " speed up indent line
+" default ''.
+" n for Normal mode
+" v for Visual mode
+" i for Insert mode
+" c for Command line editing, for 'incsearch'
 let g:indentLine_faster = 1
+let g:indentLine_setConceal = 2
+let g:indentLine_concealcursor = ""
+
+" remove conceal on markdown files
+let g:markdown_syntax_conceal = 0
 
 " Configure vim slime to use tmux
 let g:slime_target = "tmux"
+let g:slime_python_ipython = 1
+let g:slime_dont_ask_default = 1
 let g:slime_default_config = {"socket_name": "default", "target_pane": "{right-of}"}
 
 "Set vim dispatch filetype options
