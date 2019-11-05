@@ -13,7 +13,10 @@ then
 fi
 
 curl -fLo ~/.zshrc \
-    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/configs/zsh/.zshrc
+    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/configs/zsh/zshrc
+
+curl -fLo ~/.zshenv \
+    https://raw.githubusercontent.com/mjlbach/vim_it_up/master/configs/zsh/zshenv
 
 wget https://raw.github.com/trapd00r/LS_COLORS/master/LS_COLORS -O $HOME/.dircolors
 

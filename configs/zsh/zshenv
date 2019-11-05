@@ -1,0 +1,21 @@
+export N_PREFIX=$HOME/n
+
+typeset -U path
+path=($HOME/go/bin
+      $HOME/.cargo/bin
+      $HOME/local/nvim/bin
+      $HOME/local/bin
+      $HOME/.local/bin
+      $HOME/.poetry/bin
+      $N_PREFIX/bin
+      $HOME/scripts
+      $HOME/yarn/bin
+      $HOME/.config/yarn/global/node_modules/.bin
+      /usr/local/cuda/bin:$PATH
+      $path)
+
+typeset -U LD_LIBRARY_PATH
+LD_LIBRARY_PATH=(/usr/local/cuda/lib64
+                 /usr/local/nccl2/lib
+                 /usr/local/cuda/extras/CUPTI/lib64
+                 $LD_LIBRARY_PATH)
