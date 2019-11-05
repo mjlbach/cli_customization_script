@@ -19,6 +19,12 @@ curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/update.s
 source $HOME/.bashrc
 ```
 
+* To install and configure zsh, please run:
+
+```
+curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/install_zsh.sh -sSf | bash
+```
+
 * The tmux available in most package managers is out of date. TMUX 2.9a includes true color support amongst others improvements. Run the following command to compile and install:
 
 ```
@@ -78,7 +84,7 @@ _tmux.sh -sSf | bash'
     * Git integration through vim-fugitive
     * Fuzzy jumping to tags, files, buffers, general strings, etc.
     * Language server support through coc.nvim
-    
+
 ### Musings on useful features (by no means exhaustive)
 * fd
     * typing fd \[expression\] will find all files matching expression recursively in current directory. Analogous to find . -name \[expression\] but significantly faster and with easier syntax.
@@ -87,7 +93,7 @@ _tmux.sh -sSf | bash'
     * \<ctrl\>\<t> will interactively and recursively list files within the current directory and append to the current shell command. 
     * \<alt\>\<c> will interactively list subdirectories and upon selection jump to the directory.
     * Typing ** after a command and hitting tab will interactively list files and upon selection append to the current command. (try nvim **)
-* exa
+* exa 
     * exa is a colored, faster ls. Try adding an alias ll="exa -alh"
 * rg
     * rg is a faster grep with easier command syntax. Try "rg import" in the home directory of any python project to search for import statements.

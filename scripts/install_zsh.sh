@@ -7,7 +7,7 @@ then
     git clone https://github.com/romkatv/powerlevel10k.git $HOME/.config/shell/powerlevel10k
 fi
 
-if [ ! -d $HOME/.config/shell/powerlevel10k ]
+if [ ! -d $HOME/.config/shell/z.lua ]
 then
     git clone https://github.com/skywind3000/z.lua.git $HOME/.config/shell/z.lua
 fi
