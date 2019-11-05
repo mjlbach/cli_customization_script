@@ -155,7 +155,6 @@ alias upgrade="brew upgrade && brew cask upgrade && git -C ~/.config/shell/z.lua
 alias connect="/opt/cisco/anyconnect/bin/vpn connect su-vpn.stanford.edu -s < ~/.credentials"
 alias disconnect="/opt/cisco/anyconnect/bin/vpn disconnect"
 
-alias ls="gls --color=auto"
 alias ll="exa -alht changed"
 alias l="exa"
 
