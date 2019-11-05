@@ -15,4 +15,6 @@ fi
 curl -fLo ~/.zshrc \
     https://raw.githubusercontent.com/mjlbach/vim_it_up/master/configs/zsh/.zshrc
 
+wget https://raw.github.com/trapd00r/LS_COLORS/master/LS_COLORS -O $HOME/.dircolors
+
 echo "If you would like to change your shell to zsh, please run 'chsh -s /bin/zsh'"
