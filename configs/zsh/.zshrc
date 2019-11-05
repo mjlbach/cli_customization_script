@@ -3,6 +3,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+eval $( dircolors -b $HOME/.dircolors )
+
 # Completion
 autoload -U compinit 
 compinit
@@ -97,6 +99,17 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
 	add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
 fi
 
+# Vim mode
+bindkey -v
+bindkey '^a' beginning-of-line
+bindkey '^b' backward-char
+bindkey '^e' end-of-line
+bindkey '^f' forward-char
+bindkey '^h' backward-delete-char
+bindkey '^k' kill-line
+bindkey '^u' kill-whole-line
+bindkey '^w' backward-kill-word
+
 # Fish like history
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
 zle -N up-line-or-beginning-search
@@ -132,12 +145,25 @@ bindkey . rationalise-dot
 source ~/.config/shell/powerlevel10k/powerlevel10k.zsh-theme
 source ~/.config/shell/powerlevel10k/config/p10k-lean.zsh
 
+# # Hook direnv
+# eval "$(direnv hook zsh)"
+
 #Aliases
-alias upgrade="git -C ~/.config/shell/z.lua pull && git -C ~/.config/shell/powerlevel10k pull"
+# alias upgrade="brew upgrade && brew cask upgrade && doom -y up && git -C ~/.config/shell/z.lua pull && git -C ~/.config/shell/powerlevel10k pull"
+alias upgrade="brew upgrade && brew cask upgrade && git -C ~/.config/shell/z.lua pull && git -C ~/.config/shell/powerlevel10k pull"
+
+alias connect="/opt/cisco/anyconnect/bin/vpn connect su-vpn.stanford.edu -s < ~/.credentials"
+alias disconnect="/opt/cisco/anyconnect/bin/vpn disconnect"
 
 alias ls="gls --color=auto"
 alias ll="exa -alht changed"
 alias l="exa"
+
+alias emacs="emacsclient"
+
+das () {
+  docker stop $(docker ps -a -q)
+}
 
 # FZF
 export FZF_DEFAULT_COMMAND='fd --type f'
@@ -145,7 +171,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Enable z.lua
-# eval "$(lua $HOME/.config/shell/z.lua/z.lua --init zsh)"
+eval "$(lua $HOME/.config/shell/z.lua/z.lua --init zsh)"
 
 # Set environmental variables
 export EDITOR="nvim"
