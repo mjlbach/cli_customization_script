@@ -19,10 +19,16 @@ curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/update.s
 source $HOME/.bashrc
 ```
 
-* To install and configure zsh, please run:
+* To install and configure zsh:
 
 ```
 curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/install_zsh.sh -sSf | bash
+```
+
+* To install and configure fancy-diff:
+
+```
+curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/install_fancy_diff.sh -sSf | bash
 ```
 
 * The tmux available in most package managers is out of date. TMUX 2.9a includes true color support amongst others improvements. Run the following command to compile and install:
