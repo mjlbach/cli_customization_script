@@ -3,6 +3,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Set dircolors
 eval $( dircolors -b $HOME/.dircolors )
 
 # Completion
@@ -44,7 +45,7 @@ zstyle ':completion:*:hosts' hosts $hosts
 setopt extendedglob
 
 # Correction
-# setopt correctall
+setopt correctall
 
 # History
 export HISTSIZE=2000
@@ -85,31 +86,6 @@ key[ShiftTab]="${terminfo[kcbt]}"
 [[ -n "${key[PageDown]}"  ]] && bindkey -- "${key[PageDown]}"  end-of-buffer-or-history
 [[ -n "${key[ShiftTab]}"  ]] && bindkey -- "${key[ShiftTab]}"  reverse-menu-complete
 
-# Finally, make sure the terminal is in application mode, when zle is
-# active. Only then are the values from $terminfo valid.
-if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
-	autoload -Uz add-zle-hook-widget
-	function zle_application_mode_start {
-		echoti smkx
-	}
-	function zle_application_mode_stop {
-		echoti rmkx
-	}
-	add-zle-hook-widget -Uz zle-line-init zle_application_mode_start
-	add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
-fi
-
-# Vim mode
-bindkey -v
-bindkey '^a' beginning-of-line
-bindkey '^b' backward-char
-bindkey '^e' end-of-line
-bindkey '^f' forward-char
-bindkey '^h' backward-delete-char
-bindkey '^k' kill-line
-bindkey '^u' kill-whole-line
-bindkey '^w' backward-kill-word
-
 # Fish like history
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
 zle -N up-line-or-beginning-search
@@ -118,7 +94,7 @@ zle -N down-line-or-beginning-search
 [[ -n "${key[Up]}"   ]] && bindkey -- "${key[Up]}"   up-line-or-beginning-search
 [[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
 
-# Rationalize dot
+# Rationalize dot (... -> ../..)
 rationalise-dot() {
   if [[ $LBUFFER = *.. ]]; then
     LBUFFER+=/..
@@ -126,6 +102,9 @@ rationalise-dot() {
     LBUFFER+=.
   fi
 }
+
+zle -N rationalise-dot
+bindkey . rationalise-dot
 
 # Colored output in man pages
 man() {
@@ -138,31 +117,29 @@ man() {
     command man "$@"
 }
 
-zle -N rationalise-dot
-bindkey . rationalise-dot
-
 # Prompt configuration
 source ~/.config/shell/powerlevel10k/powerlevel10k.zsh-theme
 source ~/.config/shell/powerlevel10k/config/p10k-lean.zsh
 
-# # Hook direnv
-# eval "$(direnv hook zsh)"
-
 #Aliases
-# alias upgrade="brew upgrade && brew cask upgrade && doom -y up && git -C ~/.config/shell/z.lua pull && git -C ~/.config/shell/powerlevel10k pull"
-alias upgrade="brew upgrade && brew cask upgrade && git -C ~/.config/shell/z.lua pull && git -C ~/.config/shell/powerlevel10k pull"
-
-alias connect="/opt/cisco/anyconnect/bin/vpn connect su-vpn.stanford.edu -s < ~/.credentials"
-alias disconnect="/opt/cisco/anyconnect/bin/vpn disconnect"
+alias upgrade="git -C ~/.config/shell/z.lua pull && git -C ~/.config/shell/powerlevel10k pull && curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/update.sh -sSf | bash"
 
 alias ls="ls --color=auto"
 alias ll="exa -alht changed"
 alias l="exa"
 
-alias emacs="emacsclient"
+# Edit current line with editor 
+autoload edit-command-line
+zle -N edit-command-line
+bindkey '^x^e' edit-command-line
 
+# Useful docker commands
 das () {
   docker stop $(docker ps -a -q)
+}
+
+dsh () {
+  docker exec -i -t $1 /bin/bash
 }
 
 # FZF
@@ -173,9 +150,9 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # Enable z.lua
 eval "$(lua $HOME/.config/shell/z.lua/z.lua --init zsh)"
 
+# Enable direnv
+eval "$(direnv hook zsh)"
+
 # Set environmental variables
 export EDITOR="nvim"
 export WORKON_HOME="$HOME/.virtualenvs"
-
-# Finalize Powerlevel10k instant prompt. Should stay at the bottom of ~/.zshrc.
-(( ! ${+functions[p10k-instant-prompt-finalize]} )) || p10k-instant-prompt-finalize
