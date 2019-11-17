@@ -115,11 +115,11 @@ nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
 nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
 
 "Add move line shortcuts
-nnoremap <A-k> :m .-1<CR>==
+nnoremap <A-k> :m .-2<CR>==
 inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
 nnoremap <A-j> :m .+1<CR>==
 
 "Remap increment keys from tmux binds
