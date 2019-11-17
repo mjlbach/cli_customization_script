@@ -11,13 +11,11 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
-Plug 'mhinz/vim-startify'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'christoomey/vim-tmux-navigator'
@@ -26,7 +24,6 @@ Plug 'mhinz/neovim-remote'
 Plug 'Yggdroot/indentLine'
 Plug 'sheerun/vim-polyglot'
 Plug 'jpalardy/vim-slime'
-Plug 'edkolev/tmuxline.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
@@ -42,8 +39,10 @@ set backspace=indent,eol,start
 "Set tab options for vim
 set tabstop=8
 set softtabstop=4
-set shiftwidth=4
-set expandtab
+
+" These are not set due to vim-sleuth
+" set shiftwidth=4
+" set expandtab
 
 "Set highlight on search
 set nohlsearch
@@ -151,16 +150,9 @@ function! ToggleMouse()
 endfunction
 
 "Set no expandtab on makefile
-augroup Make
-  autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
-augroup end
-
-augroup Startify
-  autocmd User Startified setlocal buflisted
-augroup end
-
-let g:startify_session_autoload = 1
-let g:startify_session_persistence = 1
+" augroup Make
+"   autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
+" augroup end
 
 "Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -249,7 +241,7 @@ function! s:switch_project()
 
   call fzf#run(fzf#wrap({
         \ 'source': command,
-        \ 'options': '-m -x +s',
+        \ 'options': '-m +s',
         \ 'sink' : {path -> s:change_working_directory(path)}, 
         \ 'window':  'enew' }))
 
@@ -258,8 +250,11 @@ endfunction
 command! Projects call s:switch_project()
 
 " Make gutentags use ripgrep
+" --python-kinds=-iv
+" --exclude=build
+" --exclude=dist
 let g:gutentags_file_list_command = 'rg --files'
-let g:gutentags_ctags_extra_args = ['-n', '-u']
+let g:gutentags_ctags_extra_args = ['-n', '-u', '--python-kinds=-iv']
 
 " speed up indent line
 " default ''.
@@ -479,7 +474,7 @@ nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
 nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
-nnoremap <silent> <space>C  :<C-u>CocList commands<cr>
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document
 nnoremap <silent> <space>O  :<C-u>CocList outline<cr>
 " Search workspace symbols
