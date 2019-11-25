@@ -232,7 +232,7 @@ command! -bang -nargs=* Rg
 command! ProjectFiles execute 'Files' s:find_git_root()
 
 function! s:change_working_directory(path)
-    execute 'cd' a:path
+    execute 'lcd' a:path
     execute 'edit' a:path
 endfunction
 
