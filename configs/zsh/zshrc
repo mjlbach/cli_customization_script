@@ -135,7 +135,7 @@ bindkey '^x^e' edit-command-line
 
 # Useful docker commands
 das () {
-  docker stop $(docker ps -a -q)
+  docker kill $(docker ps -q)
 }
 
 dsh () {
