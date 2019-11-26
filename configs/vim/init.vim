@@ -236,18 +236,24 @@ function! s:change_working_directory(path)
     execute 'edit' a:path
 endfunction
 
-function! s:switch_project()
-  let command = 'fd -H -t d --maxdepth 4 .git ' . $HOME . "/Repositories" . ' | sed -En "s/\/.git//p"'
 
-  call fzf#run(fzf#wrap({
-        \ 'source': command,
-        \ 'options': '-m +s',
-        \ 'sink' : {path -> s:change_working_directory(path)}, 
-        \ 'window':  'enew' }))
+" Projects implementation
+function! s:switch_projects(path)
+  let cmd = get({'ctrl-x': 'split',
+               \ 'ctrl-v': 'vertical split',
+               \ 'ctrl-t': 'tabe'}, a:path[0], 'e')
 
+  execute cmd escape(a:path[1], ' %#\')
+  execute('lcd ' . a:path[1])
 endfunction
 
-command! Projects call s:switch_project()
+" Projects
+command! -nargs=* Projects call fzf#run({
+\ 'source':  'fd -H -t d --maxdepth 4 .git ' . $HOME . "/Repositories" . ' | sed -En "s/\/.git//p"',
+\ 'sink*':    function('<sid>switch_projects'),
+\ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --delimiter : --nth 4.. '.
+\            '--color hl:68,hl+:110',
+\ 'down':    '50%'})
 
 " Make gutentags use ripgrep
 " --python-kinds=-iv
