@@ -33,6 +33,9 @@ set autoindent
 filetype plugin indent on
 syntax on
 
+" Incremental live completion
+set inccommand=nosplit
+
 "Change backspace to behave more intuitively
 set backspace=indent,eol,start
 
@@ -371,7 +374,6 @@ let g:python_highlight_space_errors = 0
 
 " COC options
 let g:coc_global_extensions = ['coc-lists', 'coc-json', 'coc-python', 'coc-git']
-
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
 
@@ -400,6 +402,8 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -449,18 +453,15 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
 nmap <leader>qf  <Plug>(coc-fix-current)
 
-" Create mappings for function text object, requires document symbols feature of
-"languageserver.
-
+" Create mappings for function text object, requires document symbols feature of languageserver.
 xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
-" Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-" nmap <silent> <TAB> <Plug>(coc-range-select)
-" xmap <silent> <TAB> <Plug>(coc-range-select)
-" xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
+" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+nmap <silent> <C-d> <Plug>(coc-range-select)
+xmap <silent> <C-d> <Plug>(coc-range-select)
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
