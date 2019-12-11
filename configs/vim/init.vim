@@ -254,7 +254,7 @@ endfunction
 command! -nargs=* Projects call fzf#run({
 \ 'source':  'fd -H -t d --maxdepth 4 .git ' . $HOME . "/Repositories" . ' | sed -En "s/\/.git//p"',
 \ 'sink*':    function('<sid>switch_projects'),
-\ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --delimiter : --nth 4.. '.
+\ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --delimiter : '.
 \            '--color hl:68,hl+:110',
 \ 'down':    '50%'})
 
