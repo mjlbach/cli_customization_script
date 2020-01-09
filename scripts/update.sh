@@ -1,10 +1,10 @@
 update(){
     rustup update
-    cargo +nightly install exa -Z install-upgrade
-    cargo +nightly install sd -Z install-upgrade
-    cargo +nightly install fd-find -Z install-upgrade
-    cargo +nightly install ripgrep -Z install-upgrade
-    cargo +nightly install bat -Z install-upgrade
+    cargo +nightly install exa
+    cargo +nightly install sd
+    cargo +nightly install fd-find
+    cargo +nightly install ripgrep
+    cargo +nightly install bat
 
     source $HOME/.virtualenvs/neovim3/bin/activate
     pip install -U pip
