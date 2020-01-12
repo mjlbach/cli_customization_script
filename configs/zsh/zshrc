@@ -125,7 +125,7 @@ source ~/.config/shell/powerlevel10k/config/p10k-lean.zsh
 alias upgrade="git -C ~/.config/shell/z.lua pull && git -C ~/.config/shell/powerlevel10k pull && curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/update.sh -sSf | bash"
 
 alias ls="ls --color=auto"
-alias ll="exa -alht changed"
+alias ll="exa -alh --sort=modified"
 alias l="exa"
 
 # Edit current line with editor 
