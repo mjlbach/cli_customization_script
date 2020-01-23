@@ -5,8 +5,8 @@
 # exit on error
 set -e
 
-TMUX_VERSION=2.9a
-LIBEVENT_VERSION=2.1.8-stable
+TMUX_VERSION=3.0a
+LIBEVENT_VERSION=2.1.11-stable
 NCURSES_VERSION=6.1
 
 
