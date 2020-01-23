@@ -69,6 +69,7 @@ install_rust_dependencies(){
     cargo install fd-find
     cargo install sd
     cargo install exa
+    cargo install ffsend
 }
 
 install_configs(){
