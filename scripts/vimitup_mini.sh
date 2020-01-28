@@ -30,7 +30,8 @@ install_dependencies(){
     curl -fLO https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb
     sudo dpkg -i ripgrep_11.0.2_amd64.deb
     rm -rf ripgrep_11.0.2_amd64.deb
-    pip3 install --user -U pynvim flake8 black
+    python3 -m pip install --user -U pip
+    python3 -m pip install --user -U pynvim flake8 black
 }
 
 install_configs(){
