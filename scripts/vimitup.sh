@@ -39,13 +39,6 @@ install_apt_packages(){
 }
 
 make_virtual_envs(){
-    if [ ! -f $HOME/.virtualenvs/neovim2/bin/activate ]; then 
-        virtualenv $HOME/.virtualenvs/neovim2
-        source $HOME/.virtualenvs/neovim2/bin/activate
-        pip2 install -U pynvim
-        deactivate 
-    fi
-
     if [ ! -f $HOME/.virtualenvs/neovim3/bin/activate  ]; then 
         python3 -m venv $HOME/.virtualenvs/neovim3
         source $HOME/.virtualenvs/neovim3/bin/activate
