@@ -42,7 +42,7 @@ make_virtual_envs(){
     if [ ! -f $HOME/.virtualenvs/neovim3/bin/activate  ]; then 
         python3 -m venv $HOME/.virtualenvs/neovim3
         source $HOME/.virtualenvs/neovim3/bin/activate
-        pip install -U pynvim flake8 black
+        pip install -U pynvim flake8 black neovim-remote
         deactivate
     fi
 }
