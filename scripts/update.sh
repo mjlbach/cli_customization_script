@@ -11,10 +11,6 @@ update(){
     pip install -U pip
     pip install -U pynvim
 
-    source $HOME/.virtualenvs/neovim2/bin/activate
-    pip install -U pip
-    pip install -U pynvim
-
     curl -fLo ~/.tmux.conf \
     https://raw.githubusercontent.com/mjlbach/vim_it_up/master/configs/tmux/tmux.conf
 
