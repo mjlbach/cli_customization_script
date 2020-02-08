@@ -8,8 +8,7 @@ update(){
     cargo +nightly install ffsend
 
     source $HOME/.virtualenvs/neovim3/bin/activate
-    pip install -U pip
-    pip install -U pynvim
+    pip install -U pip neovim-remote flake8 black
 
     curl -fLo ~/.tmux.conf \
     https://raw.githubusercontent.com/mjlbach/vim_it_up/master/configs/tmux/tmux.conf
