@@ -27,7 +27,7 @@ restore_backup(){
 }
 
 install_apt_packages(){
-    requirements=(curl tmux python2.7 python-pip virtualenv python3-venv ctags clang)
+    requirements=(curl tmux python-pip ython3-venv ctags clang)
     sudo apt update
     for package in ${requirements[@]}; do
         dpkg -s "$package" >/dev/null 2>&1 && {
