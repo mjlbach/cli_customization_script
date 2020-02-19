@@ -27,7 +27,7 @@ restore_backup(){
 }
 
 install_apt_packages(){
-    requirements=(curl tmux python2.7 python-pip virtualenv python3-venv ctags clang)
+    requirements=(curl tmux python-pip python3-venv ctags clang pkg-config)
     sudo apt update
     for package in ${requirements[@]}; do
         dpkg -s "$package" >/dev/null 2>&1 && {
@@ -39,17 +39,10 @@ install_apt_packages(){
 }
 
 make_virtual_envs(){
-    if [ ! -f $HOME/.virtualenvs/neovim2/bin/activate ]; then 
-        virtualenv $HOME/.virtualenvs/neovim2
-        source $HOME/.virtualenvs/neovim2/bin/activate
-        pip2 install -U pynvim
-        deactivate 
-    fi
-
     if [ ! -f $HOME/.virtualenvs/neovim3/bin/activate  ]; then 
         python3 -m venv $HOME/.virtualenvs/neovim3
         source $HOME/.virtualenvs/neovim3/bin/activate
-        pip install -U pynvim flake8 black
+        pip install -U pynvim flake8 black neovim-remote
         deactivate
     fi
 }

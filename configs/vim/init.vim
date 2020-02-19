@@ -316,7 +316,7 @@ onoremap <expr> N  'nN'[v:searchforward]
 
 "Neovim python support
 let g:python3_host_prog=$HOME.'/.virtualenvs/neovim3/bin/python'
-let g:python_host_prog=$HOME.'/.virtualenvs/neovim2/bin/python'
+let g:loaded_python_provider = 0
 
 " Use jq to format json files on gqq
 augroup JSON 
