@@ -65,6 +65,11 @@ curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/install_
 curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/install_vim.sh -sSf | bash
 ```
 
+* To try the new built-in nvim-lsp
+```
+curl -fLo ~/.config/nvim/init.vim --create-dirs \
+        https://raw.githubusercontent.com/mjlbach/vim_it_up/master/configs/vim/nvim-builtin-lsp.vim
+```
 Ensure that $HOME/local/bin is on your system path, ahead of /usr/bin to use the locally installed tmux, vim, and mosh.
 
 If you are using Salt to manage a cluster, you can run one of these scripts across all of your nodes by the following command:
