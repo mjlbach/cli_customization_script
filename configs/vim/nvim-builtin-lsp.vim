@@ -28,9 +28,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'bfredl/nvim-luadev'
 Plug 'dstein64/vim-startuptime'
 Plug 'puremourning/vimspector'
-Plug 'sbdchd/neoformat'
 Plug 'neovim/nvim-lsp'
-Plug 'lifepillar/vim-mucomplete'
+Plug 'haorenW1025/diagnostic-nvim'
+Plug 'haorenW1025/completion-nvim'
 
 call plug#end()
 
@@ -49,10 +49,6 @@ set backspace=indent,eol,start
 ""Set tab options for vim
 set tabstop=8
 set softtabstop=4
-
-" These are not set due to vim-sleuth
-" set shiftwidth=4
-" set expandtab
 
 ""Set highlight on search
 set nohlsearch
@@ -87,12 +83,6 @@ set smartcase
 set updatetime=250
 set signcolumn=yes
 
-" set Vim-specific sequences for RGB colors
-if exists('$TMUX')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
-
 "Set colorscheme
 colorscheme onedark
 set termguicolors
@@ -125,8 +115,6 @@ vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 nnoremap <A-j> :m .+1<CR>==
 
-"Remap increment keys from tmux binds
-
 "Remap escape to leave terminal mode
 "tnoremap <Esc> <C-\><C-n>
 
@@ -152,23 +140,11 @@ function! ToggleMouse()
   endif
 endfunction
 
-"Set no expandtab on makefile
-" augroup Make
-"   autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
-" augroup end
-
 "Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 
 "Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
-
-" augroup Lua
-"   autocmd FileType lua nmap <C-c><C-c> <Plug>(Luadev-RunLine)
-"   autocmd FileType lua vmap <silent> <C-c><C-c> <Plug>(Luadev-Run)
-"   autocmd FileType lua nmap <silent> <C-c>w <Plug>(Luadev-RunWord)
-"   " autocmd FileType lua imap <silent> \ <Plug>(Luadev-Complete)
-" augroup end
 
 "Add fzf
 set rtp+=/usr/local/opt/fzf
@@ -256,6 +232,24 @@ function! s:change_working_directory(path)
     execute 'edit' a:path
 endfunction
 
+" Projects implementation
+function! s:switch_projects(path)
+  let cmd = get({'ctrl-x': 'split',
+               \ 'ctrl-v': 'vertical split',
+               \ 'ctrl-t': 'tabe'}, a:path[0], 'e')
+
+  execute cmd escape(a:path[1], ' %#\')
+  execute('lcd ' . a:path[1])
+endfunction
+
+" Projects
+command! -nargs=* Projects call fzf#run({
+\ 'source':  'fd -H -t d --maxdepth 4 .git ' . $HOME . "/Repositories" . ' | sed -En "s/\/.git//p"',
+\ 'sink*':    function('<sid>switch_projects'),
+\ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --delimiter : '.
+\            '--color hl:68,hl+:110',
+\ 'down':    '50%'})
+
 " Make gutentags use ripgrep
 " --python-kinds=-iv
 " --exclude=build
@@ -294,6 +288,7 @@ augroup end
 augroup Python
   autocmd FileType python setlocal makeprg=flake8
 augroup end
+
 "Change preview window location
 set splitbelow
 
@@ -315,12 +310,6 @@ onoremap <expr> N  'nN'[v:searchforward]
 "Neovim python support
 let g:python3_host_prog=$HOME.'/.virtualenvs/neovim3/bin/python'
 let g:loaded_python_provider = 0
-
-" Use jq to format json files on gqq
-augroup JSON
-  autocmd!
-  autocmd FileType json setlocal formatprg=jq\ .
-augroup end
 
 " Clear white space on empty lines and end of line
 nnoremap <silent> <F6> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
@@ -370,26 +359,6 @@ augroup end
 " Vim polyglot language specific settings
 let g:python_highlight_space_errors = 0
 
-" Projects implementation
-function! s:switch_projects(path)
-  let cmd = get({'ctrl-x': 'split',
-               \ 'ctrl-v': 'vertical split',
-               \ 'ctrl-t': 'tabe'}, a:path[0], 'e')
-
-  execute cmd escape(a:path[1], ' %#\')
-  execute('lcd ' . a:path[1])
-endfunction
-
-" Projects
-command! -nargs=* Projects call fzf#run({
-\ 'source':  'fd -H -t d --maxdepth 4 .git ' . $HOME . "/Repositories" . ' | sed -En "s/\/.git//p"',
-\ 'sink*':    function('<sid>switch_projects'),
-\ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --delimiter : '.
-\            '--color hl:68,hl+:110',
-\ 'down':    '50%'})
-
-let g:neoformat_enabled_python = ['black']
-
 " LSP settings
 " log file location: /Users/michael/.local/share/nvim/vim-lsp.log
 :lua << EOF
@@ -397,18 +366,8 @@ let g:neoformat_enabled_python = ['black']
 
   local on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    local method = 'textDocument/publishDiagnostics'
-
-  local default_callback = vim.lsp.callbacks[method]
-  vim.lsp.callbacks[method] = function(err, method, result, client_id)
-    default_callback(err, method, result, client_id)
-    if result and result.diagnostics then
-      for _, v in ipairs(result.diagnostics) do
-        v.uri = v.uri or result.uri
-      end
-      vim.lsp.util.set_qflist(result.diagnostics)
-      end
-    end
+    require'diagnostic'.on_attach()
+    require'completion'.on_attach()
 
     -- Mappings.
     local opts = { noremap=true, silent=true }
@@ -433,9 +392,23 @@ EOF
 
 command! Format  execute 'lua vim.lsp.buf.formatting()'
 " Set up mucomplete
-autocmd CompleteDone * pclose
-let g:mucomplete#enable_auto_at_startup = 1
-set completeopt+=noinsert,noselect,menuone
-set shortmess+=c   " Shut off completion messages
-set belloff+=ctrlg " If Vim beeps during completion
-let g:mucomplete#completion_delay = 1
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Auto close popup menu when finish completion
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Enable tab for triggering completion
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ completion#trigger_completion()
