@@ -50,9 +50,9 @@ set backspace=indent,eol,start
 set tabstop=8
 set softtabstop=4
 
-"" These are not set due to vim-sleuth
-"" set shiftwidth=4
-"" set expandtab
+" These are not set due to vim-sleuth
+" set shiftwidth=4
+" set expandtab
 
 ""Set highlight on search
 set nohlsearch
@@ -431,6 +431,11 @@ let g:neoformat_enabled_python = ['black']
   end
 EOF
 
+command! Format  execute 'lua vim.lsp.buf.formatting()'
 " Set up mucomplete
+autocmd CompleteDone * pclose
 let g:mucomplete#enable_auto_at_startup = 1
-set completeopt+=noinsert,noselect
+set completeopt+=noinsert,noselect,menuone
+set shortmess+=c   " Shut off completion messages
+set belloff+=ctrlg " If Vim beeps during completion
+let g:mucomplete#completion_delay = 1
