@@ -274,6 +274,7 @@ let g:gutentags_ctags_extra_args = ['-n', '-u', '--python-kinds=-iv']
 let g:indentLine_faster = 1
 let g:indentLine_setConceal = 2
 let g:indentLine_concealcursor = ""
+let g:indentLine_bufNameExclude = ["term:.*"]
 
 " remove conceal on markdown files
 let g:markdown_syntax_conceal = 0
