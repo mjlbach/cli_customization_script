@@ -31,6 +31,7 @@ Plug 'puremourning/vimspector'
 Plug 'neovim/nvim-lsp'
 Plug 'haorenW1025/diagnostic-nvim'
 Plug 'haorenW1025/completion-nvim'
+Plug 'sbdchd/neoformat'
 
 call plug#end()
 
@@ -413,3 +414,5 @@ inoremap <silent><expr> <TAB>
   \ pumvisible() ? "\<C-n>" :
   \ <SID>check_back_space() ? "\<TAB>" :
   \ completion#trigger_completion()
+
+let g:neoformat_enabled_python = [ 'black' ]
