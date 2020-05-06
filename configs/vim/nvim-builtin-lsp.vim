@@ -117,7 +117,10 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 nnoremap <A-j> :m .+1<CR>==
 
 "Remap escape to leave terminal mode
-"tnoremap <Esc> <C-\><C-n>
+augroup Terminal
+  au TermOpen * tnoremap <buffer> <Esc> <c-\><c-n>
+  au FileType fzf tunmap <buffer> <Esc>
+augroup end
 
 "Add map to enter paste mode
 set pastetoggle=<F3>
