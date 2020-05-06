@@ -401,11 +401,14 @@ command! Format  execute 'lua vim.lsp.buf.formatting()'
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" Auto close popup menu when finish completion
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
 " Set completeopt to have a better completion experience
 set completeopt=menuone,noinsert,noselect
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
+
+" Auto close popup menu when finish completion
+" autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " Enable tab for triggering completion
 function! s:check_back_space() abort
