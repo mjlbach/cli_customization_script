@@ -8,33 +8,33 @@
 
 ```
 
-curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/vimitup.sh -sSf | bash 
+curl https://raw.githubusercontent.com/mjlbach/cli_customization_script/master/scripts/vimitup.sh -sSf | bash 
 source $HOME/.bashrc
 
 ```
 
 * To upgrade your config, run the following commands. This does not backup your configuration files and will overwrite your tmux and neovim config:
 ```
-curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/update.sh -sSf | bash 
+curl https://raw.githubusercontent.com/mjlbach/cli_customization_script/master/scripts/update.sh -sSf | bash 
 source $HOME/.bashrc
 ```
 
 * To install and configure zsh:
 
 ```
-curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/install_zsh.sh -sSf | bash
+curl https://raw.githubusercontent.com/mjlbach/cli_customization_script/master/scripts/install_zsh.sh -sSf | bash
 ```
 
 * To install and configure fancy-diff:
 
 ```
-curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/install_fancy_diff.sh -sSf | bash
+curl https://raw.githubusercontent.com/mjlbach/cli_customization_script/master/scripts/install_fancy_diff.sh -sSf | bash
 ```
 
 * The tmux available in most package managers is out of date. TMUX 2.9a includes true color support amongst others improvements. Run the following command to compile and install:
 
 ```
-curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/install_tmux.sh -sSf | bash
+curl https://raw.githubusercontent.com/mjlbach/cli_customization_script/master/scripts/install_tmux.sh -sSf | bash
 ```
 You may need to add the [tmux-256color](https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be) profile to your cluster:
 
@@ -56,26 +56,26 @@ echo "tmux-256color|tmux with 256 colors,
 * If you would like the latest mosh (mobile-shell) which includes true color support, run the following compile script. Note that this installs mosh server & client on your remote host, your client MOSH needs to also be the latest version (for example: brew install mosh --HEAD on macOS or running the same buidl script on your local linux machine).
 
 ```
-curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/install_mosh.sh -sSf | bash
+curl https://raw.githubusercontent.com/mjlbach/cli_customization_script/master/scripts/install_mosh.sh -sSf | bash
 ```
 
 * To use vim instead of neovim, run the following script to download, compile and customize vanilla vim. 
 
 ```
-curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/install_vim.sh -sSf | bash
+curl https://raw.githubusercontent.com/mjlbach/cli_customization_script/master/scripts/install_vim.sh -sSf | bash
 ```
 
 * To try the new built-in nvim-lsp
 ```
 curl -fLo ~/.config/nvim/init.vim --create-dirs \
-        https://raw.githubusercontent.com/mjlbach/vim_it_up/master/configs/vim/nvim-builtin-lsp.vim
+        https://raw.githubusercontent.com/mjlbach/cli_customization_script/master/configs/vim/nvim-builtin-lsp.vim
 ```
 Ensure that $HOME/local/bin is on your system path, ahead of /usr/bin to use the locally installed tmux, vim, and mosh.
 
 If you are using Salt to manage a cluster, you can run one of these scripts across all of your nodes by the following command:
 
 ```
-sudo salt '*' cmd.run runas=mjlbach 'curl https://raw.githubusercontent.com/mjlbach/vim_it_up/master/scripts/install_
+sudo salt '*' cmd.run runas=mjlbach 'curl https://raw.githubusercontent.com/mjlbach/cli_customization_script/master/scripts/install_
 _tmux.sh -sSf | bash'
 ```
 
