@@ -8,7 +8,7 @@
 
 ```
 
-curl https://raw.githubusercontent.com/mjlbach/cli_customization_script/master/scripts/vimitup.sh -sSf | bash 
+curl https://raw.githubusercontent.com/mjlbach/cli_customization_script/master/scripts/install.sh -sSf | bash 
 source $HOME/.bashrc
 
 ```
